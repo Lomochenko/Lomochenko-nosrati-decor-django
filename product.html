@@ -99,7 +99,7 @@
                     </a>
                 </div>
 
-                <div class="menu-icon" data-dsn="parallax" data-dsn-move="5">
+                <div class="menu-icon" data-dsn="parallax" data-dsn-move="5" dir="ltr">
                     <div class="icon-m">
                         <i class="menu-icon-close fas fa-times"></i>
                         <span class="menu-icon__line menu-icon__line-left"></span>
@@ -610,7 +610,7 @@
                 <!-- end description section -->
 
                 <!-- hover animation -->
-                <section class="contact-up section-margin section-padding">
+                <section class="contact-up section-margin section-padding" dir="ltr">
                     <div class="container">
                         <div class="c-wapp">
 
@@ -872,46 +872,50 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             transition: all 0.3s ease;
-            animation: pulseCloseBtn 2s infinite;
-            border: 2px solid transparent;
+            left: 30px;
+            top: 30px;
         }
 
-        /* انیمیشن درخشش دکمه بستن */
-        @keyframes pulseCloseBtn {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-                border-color: rgba(255, 255, 255, 0.2);
+        /* تبلت */
+        @media (max-width: 1024px) {
+            .fullscreen-modal .close-modal {
+                left: 20px;
+                top: 20px;
+                width: 38px;
+                height: 38px;
+                font-size: 28px;
             }
-            50% {
-                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
-                border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* موبایل بزرگ */
+        @media (max-width: 768px) {
+            .fullscreen-modal .close-modal {
+                left: 15px;
+                left: auto;
+                top: 15px;
+                width: 35px;
+                height: 35px;
+                font-size: 24px;
             }
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-                border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* موبایل کوچک */
+        @media (max-width: 480px) {
+            .fullscreen-modal .close-modal {
+                left: 10px;
+                top: 10px;
+                width: 32px;
+                height: 32px;
+                font-size: 22px;
             }
         }
 
         .fullscreen-modal .close-modal:hover {
-            background: rgba(255,255,255,0.3);
-            transform: rotate(90deg) scale(1.1);
-            animation: none;
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-
-        @media (max-width: 768px) {
-            .fullscreen-modal .close-modal {
-                width: 35px;
-                height: 35px;
-                font-size: 24px;
-                left: 15px;
-                right: auto;
-                top: 15px;
-                animation: pulseCloseBtn 2s infinite;
-            }
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
         }
 
         .fullscreen-modal .modal-body {
