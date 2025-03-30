@@ -1427,7 +1427,7 @@ function initCursor() {
         
         // بستن با کلیک خارج از محتوا
         modal.addEventListener('click', (e) => {
-            if (!modalBody.contains(e.target) && !closeBtn.contains(e.target)) {
+            if (e.target === modal) {
                 closeModal();
             }
         });
@@ -1443,5 +1443,178 @@ function initCursor() {
     // اضافه کردن فراخوانی تابع به document ready
     $(document).ready(function() {
         initFullscreenModal();
+    });
+
+    // اضافه کردن تابع اسکرول نرم در ابتدای فایل
+    const SmoothScroll = {
+        init() {
+            // تنظیمات اصلی
+            this.config = {
+                speed: 0.9,           // سرعت اسکرول (0.1 تا 1)
+                smooth: 16,           // نرمی حرکت
+                currentY: 0,          // موقعیت فعلی اسکرول
+                targetY: 0,           // موقعیت هدف اسکرول
+                status: true          // وضعیت فعال/غیرفعال
+            };
+
+            this.container = document.querySelector('#dsn-scrollbar');
+            
+            if (!this.container) return;
+
+            // ذخیره موقعیت اسکرول
+            this.config.currentY = window.scrollY;
+            this.config.targetY = window.scrollY;
+
+            // اضافه کردن کلاس برای استایل
+            document.body.classList.add('smooth-scroll-enabled');
+            
+            // شروع انیمیشن
+            this.startRAF();
+            
+            // اضافه کردن event listeners
+            this.bindEvents();
+        },
+
+        // محاسبه حرکت نرم
+        lerp(start, end, factor) {
+            return start + (end - start) * factor;
+        },
+
+        // به‌روزرسانی موقعیت اسکرول
+        update() {
+            if (!this.config.status) return;
+
+            // محاسبه موقعیت جدید با حرکت نرم
+            this.config.currentY = this.lerp(
+                this.config.currentY, 
+                this.config.targetY, 
+                this.config.speed
+            );
+
+            // گرد کردن عدد برای جلوگیری از اعشار
+            this.config.currentY = parseFloat(this.config.currentY.toFixed(2));
+
+            // اعمال transform برای عملکرد بهتر
+            this.container.style.transform = `translate3d(0, ${-this.config.currentY}px, 0)`;
+
+            // درخواست فریم بعدی
+            this.RAF = requestAnimationFrame(this.update.bind(this));
+        },
+
+        // شروع animation frame
+        startRAF() {
+            if (!this.RAF) {
+                this.RAF = requestAnimationFrame(this.update.bind(this));
+            }
+        },
+
+        // توقف animation frame
+        stopRAF() {
+            if (this.RAF) {
+                cancelAnimationFrame(this.RAF);
+                this.RAF = null;
+            }
+        },
+
+        // مدیریت رویدادها
+        bindEvents() {
+            // اسکرول با چرخ ماوس
+            window.addEventListener('wheel', (e) => {
+                if (!this.config.status) return;
+
+                e.preventDefault();
+                const delta = e.deltaY;
+                
+                // تنظیم سرعت اسکرول بر اساس شدت چرخش
+                const scrollSpeed = Math.abs(delta) > 100 ? 60 : 30;
+                this.config.targetY += delta > 0 ? scrollSpeed : -scrollSpeed;
+
+                // محدود کردن اسکرول
+                this.config.targetY = Math.max(0, Math.min(
+                    this.config.targetY,
+                    this.container.clientHeight - window.innerHeight
+                ));
+            }, { passive: false });
+
+            // اسکرول با تاچ
+            let touchStart = 0;
+            window.addEventListener('touchstart', (e) => {
+                touchStart = e.touches[0].clientY;
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!this.config.status) return;
+
+                const delta = touchStart - e.touches[0].clientY;
+                this.config.targetY += delta;
+                touchStart = e.touches[0].clientY;
+
+                // محدود کردن اسکرول
+                this.config.targetY = Math.max(0, Math.min(
+                    this.config.targetY,
+                    this.container.clientHeight - window.innerHeight
+                ));
+            }, { passive: false });
+
+            // تنظیم مجدد در تغییر سایز
+            window.addEventListener('resize', () => {
+                this.config.targetY = Math.min(
+                    this.config.targetY,
+                    this.container.clientHeight - window.innerHeight
+                );
+            });
+        },
+
+        // تغییر سرعت اسکرول
+        setSpeed(newSpeed) {
+            this.config.speed = Math.max(0.1, Math.min(1, newSpeed));
+        },
+
+        // فعال/غیرفعال کردن اسکرول نرم
+        toggle(status) {
+            this.config.status = status;
+            document.body.style.overflow = status ? 'hidden' : '';
+            
+            if (status) {
+                this.startRAF();
+            } else {
+                this.stopRAF();
+            }
+        }
+    };
+
+    // اضافه کردن استایل‌های مورد نیاز
+    const scrollStyle = document.createElement('style');
+    scrollStyle.textContent = `
+        .smooth-scroll-enabled {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #dsn-scrollbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            will-change: transform;
+        }
+    `;
+    document.head.appendChild(scrollStyle);
+
+    // راه‌اندازی اسکرول نرم در document ready
+    $(() => {
+        SmoothScroll.init();
+        
+        // غیرفعال کردن اسکرول نرم در موبایل
+        if (window.innerWidth <= 768) {
+            SmoothScroll.toggle(false);
+        }
+        
+        // مدیریت اسکرول در مودال
+        const modal = $('#fullscreen-modal');
+        modal.on('show', () => SmoothScroll.toggle(false));
+        modal.on('hide', () => SmoothScroll.toggle(true));
     });
 }(jQuery);
