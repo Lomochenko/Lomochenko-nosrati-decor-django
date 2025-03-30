@@ -11659,42 +11659,6 @@ section:has(#content-modal) {
   /* برای اسکرول نرم در iOS */
 }
 
-.modal-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-  background: #2d2d2d;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-.modal-content::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.custom-modal.show .modal-content {
-  transform: translateY(0);
-}
-
-.close-modal {
-  color: #aaa;
-  float: left;
-  font-size: 38px;
-  font-weight: bold;
-  cursor: pointer;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.close-modal:hover {
-  color: #fff;
-}
-
 .root-work.root-work-two .projects-list .item a img {
   -webkit-transition: 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
   -o-transition: 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);

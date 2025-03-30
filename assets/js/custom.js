@@ -1427,7 +1427,7 @@ function initCursor() {
         
         // بستن با کلیک خارج از محتوا
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
+            if (!modalBody.contains(e.target) && !closeBtn.contains(e.target)) {
                 closeModal();
             }
         });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="ir-FA" dir="rtl">
 
 <head>
     <!-- Required meta tags -->
@@ -593,7 +593,7 @@
                     </div>
 
                     <!-- مودال تمام صفحه -->
-                    <div id="fullscreen-modal" class="fullscreen-modal">
+                    <div id="fullscreen-modal" class="fullscreen-modal" dir="rtl">
                         <div class="modal-content">
                             <span class="close-modal">&times;</span>
                             <div class="modal-body">
@@ -796,21 +796,21 @@
                 <span>خانه</span>
             </a>
         </div>
-        
+
         <div class="mobile-bottom-nav__item">
             <a href="products.html" class="mobile-bottom-nav__item-content">
                 <i class="fas fa-dropbox"></i>
                 <span>محصولات</span>
             </a>
         </div>
-        
+
         <div class="mobile-bottom-nav__item">
             <a href="blog.html" class="mobile-bottom-nav__item-content">
                 <i class="fa fa-blogger"></i>
                 <span>بلاگ</span>
             </a>
         </div>
-        
+
         <div class="mobile-bottom-nav__item">
             <a href="consulting.html" class="mobile-bottom-nav__item-content">
                 <i class="fas fa-comments"></i>
@@ -820,185 +820,173 @@
     </nav>
 
     <style>
-    /* استایل برای محتوای مخفی SEO */
-    .hidden-content {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0,0,0,0);
-        border: 0;
-    }
-
-    /* استایل برای مودال تمام صفحه */
-    .fullscreen-modal {
-        display: none;
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.95);
-        z-index: 99999;
-        opacity: 0;
-        transition: all 0.3s ease;
-        overflow: hidden;
-        transform: translateY(0);
-        touch-action: none;
-    }
-
-    .fullscreen-modal.show {
-        opacity: 1;
-    }
-
-    .fullscreen-modal .modal-content {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
-
-    .fullscreen-modal .close-modal {
-        position: fixed;
-        font-size: 30px;
-        color: #fff;
-        cursor: pointer;
-        z-index: 100000;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255,255,255,0.1);
-        border-radius: 50%;
-        transition: all 0.3s ease;
-        left: 30px;
-        top: 30px;
-    }
-
-    /* تبلت */
-    @media (max-width: 1024px) {
-        .fullscreen-modal .close-modal {
-            left: 20px;
-            top: 20px;
-            width: 38px;
-            height: 38px;
-            font-size: 28px;
-        }
-    }
-
-    /* موبایل بزرگ */
-    @media (max-width: 768px) {
-        .fullscreen-modal .close-modal {
-            left: 15px;
-            left: auto;
-            top: 15px;
-            width: 35px;
-            height: 35px;
-            font-size: 24px;
-        }
-    }
-
-    /* موبایل کوچک */
-    @media (max-width: 480px) {
-        .fullscreen-modal .close-modal {
-            left: 10px;
-            top: 10px;
-            width: 32px;
-            height: 32px;
-            font-size: 22px;
-        }
-    }
-
-    .fullscreen-modal .close-modal:hover {
-        background: rgba(255,255,255,0.2);
-        transform: rotate(90deg);
-    }
-
-    .fullscreen-modal .modal-body {
-        /* background: #fff; */
-        padding: 30px;
-        margin: 0;
-        flex: 1;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        position: relative;
-        transform: translateY(20px);
-        opacity: 0;
-        transition: all 0.3s ease;
-        overscroll-behavior: contain;
-        touch-action: pan-y;
-    }
-
-    .fullscreen-modal.show .modal-body {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    /* وقتی مودال باز است، اسکرول صفحه اصلی را غیرفعال می‌کنیم */
-    body.modal-open {
-        overflow: hidden !important;
-        touch-action: none;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-    }
-
-    /* استایل برای دکمه نمایش */
-    .show-modal-button {
-        background: var(--theme-color);
-        /* color: #fff; */
-        border: none;
-        padding: 15px 30px;
-        border-radius: 30px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-family: inherit;
-    }
-
-    .show-modal-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    /* استایل‌های اضافی برای بهبود اسکرول */
-    .modal-body::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .modal-body::-webkit-scrollbar-track {
-        /* background: #f1f1f1; */
-        border-radius: 4px;
-    }
-
-    .modal-body::-webkit-scrollbar-thumb {
-        background: var(--theme-color);
-        border-radius: 4px;
-    }
-
-    .modal-body::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-
-    @media (max-width: 768px) {
-        .fullscreen-modal .modal-body {
+        /* استایل برای محتوای مخفی SEO */
+        .hidden-content {
+            position: absolute;
+            width: 1px;
+            height: 1px;
             padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
-        
+
+        /* استایل برای مودال تمام صفحه */
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            width: 100vw;
+            /* height: 100vh; */
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 99999;
+            opacity: 0;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            transform: translateY(0);
+            touch-action: none;
+        }
+
+        .fullscreen-modal.show {
+            opacity: 1;
+        }
+
+        .fullscreen-modal .modal-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
         .fullscreen-modal .close-modal {
-            width: 35px;
-            height: 35px;
-            font-size: 24px;
-            left: 15px;
-            left: auto;
-            top: 15px;
+            position: fixed;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 100000;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            animation: pulseCloseBtn 2s infinite;
+            border: 2px solid transparent;
         }
-    }
+
+        /* انیمیشن درخشش دکمه بستن */
+        @keyframes pulseCloseBtn {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+                border-color: rgba(255, 255, 255, 0.6);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .fullscreen-modal .close-modal:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg) scale(1.1);
+            animation: none;
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .fullscreen-modal .close-modal {
+                width: 35px;
+                height: 35px;
+                font-size: 24px;
+                left: 15px;
+                right: auto;
+                top: 15px;
+                animation: pulseCloseBtn 2s infinite;
+            }
+        }
+
+        .fullscreen-modal .modal-body {
+            /* background: #fff; */
+            padding: 30px;
+            margin: 0;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            overscroll-behavior: contain;
+            touch-action: pan-y;
+        }
+
+        .fullscreen-modal.show .modal-body {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* وقتی مودال باز است، اسکرول صفحه اصلی را غیرفعال می‌کنیم */
+        body.modal-open {
+            overflow: hidden !important;
+            touch-action: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* استایل برای دکمه نمایش */
+        .show-modal-button {
+            background: var(--theme-color);
+            /* color: #fff; */
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .show-modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* استایل‌های اضافی برای بهبود اسکرول */
+        .modal-body::-webkit-scrollbar {
+            width: 5px;
+            direction: rtl;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background: #424242;
+        }
+
+        @media (max-width: 768px) {
+            .fullscreen-modal .modal-body {
+                padding: 0;
+                direction: rtl;
+            }
+
+            .fullscreen-modal .close-modal {
+                width: 35px;
+                height: 35px;
+                font-size: 24px;
+                left: 15px;
+                top: 15px;
+            }
+        }
     </style>
 </body>
 
