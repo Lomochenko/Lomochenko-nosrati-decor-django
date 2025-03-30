@@ -578,17 +578,44 @@ function initCursor() {
                 fade: !0,
                 cssEase: "linear"
             }), e(' .our-news .slick-slider , .our-team .slick-slider , [data-dsn-col="2"] .slick-slider').slick({
-                infinite: !0,
+                infinite: true,
                 slidesToShow: 2,
-                arrows: !1,
-                dots: !0,
-                responsive: [{
-                    breakpoint: 800,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
+                slidesToScroll: 1,
+                arrows: false,
+                dots: true,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                pauseOnHover: true,
+                cssEase: 'ease-out',
+                speed: 800,
+                fade: false,
+                swipe: true,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            autoplaySpeed: 2500
+                        }
+                    },
+                    {
+                        breakpoint: 800,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            autoplaySpeed: 2000
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            autoplaySpeed: 1800
+                        }
                     }
-                }]
+                ]
             }), e('[data-dsn-col="3"] .slick-slider').slick({
                 infinite: !0,
                 slidesToShow: 3,
