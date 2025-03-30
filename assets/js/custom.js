@@ -1617,4 +1617,244 @@ function initCursor() {
         modal.on('show', () => SmoothScroll.toggle(false));
         modal.on('hide', () => SmoothScroll.toggle(true));
     });
+
+    // اضافه کردن کلاس PageTransition
+    const PageTransition = {
+        init() {
+            // ایجاد المان پریلودر
+            this.createLoader();
+            // اضافه کردن event listeners
+            this.bindEvents();
+        },
+
+        createLoader() {
+            const loaderHTML = `
+                <div class="page-transition-loader">
+                    <div class="loader-content">
+                        <svg class="circular" viewBox="25 25 50 50">
+                            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                        </svg>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', loaderHTML);
+
+            const style = document.createElement('style');
+            style.textContent = `
+                .page-transition-loader {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.85);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 99999;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease, visibility 0.3s ease;
+                }
+
+                .page-transition-loader.active {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .loader-content {
+                    width: 50px;
+                    height: 50px;
+                    position: relative;
+                }
+
+                .circular {
+                    animation: rotate 2s linear infinite;
+                    height: 100%;
+                    transform-origin: center center;
+                    width: 100%;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                }
+
+                .path {
+                    stroke-dasharray: 1, 200;
+                    stroke-dashoffset: 0;
+                    animation: dash 1.5s ease-in-out infinite;
+                    stroke: #fff; /* تغییر رنگ به سفید */
+                    stroke-linecap: round;
+                }
+
+                @keyframes rotate {
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                }
+
+                @keyframes dash {
+                    0% {
+                        stroke-dasharray: 1, 200;
+                        stroke-dashoffset: 0;
+                    }
+                    50% {
+                        stroke-dasharray: 89, 200;
+                        stroke-dashoffset: -35px;
+                    }
+                    100% {
+                        stroke-dasharray: 89, 200;
+                        stroke-dashoffset: -124px;
+                    }
+                }
+
+                /* افزودن انیمیشن pulse برای جلوه بیشتر */
+                .loader-content::after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.1);
+                    animation: pulse 1s ease-out infinite;
+                }
+
+                @keyframes pulse {
+                    0% {
+                        transform: translate(-50%, -50%) scale(0.8);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translate(-50%, -50%) scale(1.2);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        },
+
+        bindEvents() {
+            // گرفتن تمام لینک‌های داخلی
+            const internalLinks = document.querySelectorAll('a[href$=".html"]');
+            
+            internalLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    
+                    // اگر لینک داخلی است
+                    if (href && href.endsWith('.html')) {
+                        e.preventDefault();
+                        this.navigateTo(href);
+                    }
+                });
+            });
+        },
+
+        showLoader() {
+            const loader = document.querySelector('.page-transition-loader');
+            loader.classList.add('active');
+        },
+
+        hideLoader() {
+            const loader = document.querySelector('.page-transition-loader');
+            loader.classList.remove('active');
+        },
+
+        async navigateTo(url) {
+            this.showLoader();
+
+            try {
+                // شبیه‌سازی تاخیر برای تجربه بهتر
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                // انتقال به صفحه جدید
+                window.location.href = url;
+            } catch (error) {
+                console.error('Navigation error:', error);
+                this.hideLoader();
+            }
+        }
+    };
+
+    // تشخیص نوع بارگذاری صفحه
+    function isPageRefresh() {
+        return (
+            window.performance &&
+            window.performance.navigation.type === window.performance.navigation.TYPE_RELOAD
+        );
+    }
+
+    // مدیریت پریلودرها در document ready
+    $(() => {
+        // اگر صفحه رفرش شده یا اولین بار است
+        if (isPageRefresh() || !sessionStorage.getItem('pageLoaded')) {
+            // نمایش پریلودر اصلی
+            $('.preloader').show();
+            sessionStorage.setItem('pageLoaded', 'true');
+        } else {
+            // مخفی کردن پریلودر اصلی
+            $('.preloader').hide();
+        }
+
+        // راه‌اندازی پریلودر صفحات داخلی
+        PageTransition.init();
+    });
+
+    // مدیریت پریلودر اصلی
+    $(window).on('load', function() {
+        if (isPageRefresh() || !sessionStorage.getItem('pageLoaded')) {
+            // کد پریلودر اصلی شما
+            var t = $(".preloader"),
+                n = t.find(".preloader-block"),
+                a = n.find(".percent"),
+                o = n.find(".title"),
+                s = n.find(".loading"),
+                r = t.find(".preloader-bar"),
+                l = r.find(".preloader-progress"),
+                d = t.find(".preloader-after"),
+                c = t.find(".preloader-before"),
+                u = dsnGrid.pageLoad(0, 100, 300, function (e) {
+                    a.text(e), l.css("width", e + "%")
+                });
+            i.on("load", function () {
+                clearInterval(u), TweenMax.fromTo(l, .5, {
+                    width: "95%"
+                }, {
+                    width: "100%",
+                    onUpdate: function () {
+                        var e = l.width() / l.parent().width() * 100;
+                        a.text(parseInt(e, 10))
+                    },
+                    onComplete: function () {
+                        TweenMax.to(r, .5, {
+                            left: "100%"
+                        }), TweenMax.to(o, 1, {
+                            autoAlpha: 0,
+                            y: -100
+                        }), TweenMax.to(s, 1, {
+                            autoAlpha: 0,
+                            y: 100
+                        }), TweenMax.to(a, 1, {
+                            autoAlpha: 0
+                        }), TweenMax.to(c, 1, {
+                            y: "-100%",
+                            delay: .7
+                        }), TweenMax.to(d, 1, {
+                            y: "100%",
+                            delay: .7,
+                            onComplete: function () {
+                                t.addClass("hidden")
+                            }
+                        })
+                    }
+                })
+            })
+        }
+    });
 }(jQuery);
