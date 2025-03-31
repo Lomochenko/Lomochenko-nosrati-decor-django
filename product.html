@@ -444,7 +444,7 @@
                 <!-- end faq accordion section -->
 
                 <!-- description section -->
-                <section>
+                <section class="container-fluid pt-100">
                     <!-- محتوای مخفی برای SEO -->
                     <div class="seo-content hidden-content">
                         <!-- title -->
@@ -603,12 +603,19 @@
                     </div>
 
                     <!-- دکمه نمایش -->
-                    <center class="image-zoom" data-dsn="parallax">
-                        <button id="show-modal-btn" class="show-modal-button">نمایش اطلاعات تکمیلی</button>
-                    </center>
+                    <div class="show-modal-btn-wrapper">
+                        <div class="btn-glow-wrapper">
+                            <button id="show-modal-btn" class="show-modal-button">
+                                <span class="btn-text">اطلاعات محصول</span>
+                                <span class="btn-icon">
+                                    <i class="fas fa-arrow-down"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                 </section>
                 <!-- end description section -->
-                 <!-- recommended projects -->
+                <!-- recommended projects -->
                 <section class="our-work work-under-header" data-dsn-col="3" dir="ltr">
                     <div class="container header-hero">
                         <div class="row" dir="rtl">
@@ -1011,47 +1018,33 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             transition: all 0.3s ease;
+            animation: blinkCloseBtn 2.5s infinite;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
             left: 30px;
             top: 30px;
         }
 
-        /* تبلت */
-        @media (max-width: 1024px) {
-            .fullscreen-modal .close-modal {
-                left: 20px;
-                top: 20px;
-                width: 38px;
-                height: 38px;
-                font-size: 28px;
+        /* انیمیشن چشمک‌زن برای دکمه بستن */
+        @keyframes blinkCloseBtn {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
             }
-        }
 
-        /* موبایل بزرگ */
-        @media (max-width: 768px) {
-            .fullscreen-modal .close-modal {
-                left: 15px;
-                left: auto;
-                top: 15px;
-                width: 35px;
-                height: 35px;
-                font-size: 24px;
+            50% {
+                box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.3);
             }
-        }
 
-        /* موبایل کوچک */
-        @media (max-width: 480px) {
-            .fullscreen-modal .close-modal {
-                left: 10px;
-                top: 10px;
-                width: 32px;
-                height: 32px;
-                font-size: 22px;
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
             }
         }
 
         .fullscreen-modal .close-modal:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             transform: rotate(90deg);
+            animation: none;
+            border-color: rgba(255, 255, 255, 0.8);
         }
 
         .fullscreen-modal .modal-body {
@@ -1084,22 +1077,222 @@
             height: 100%;
         }
 
-        /* استایل برای دکمه نمایش */
-        .show-modal-button {
+        /* استایل جدید و مدرن برای دکمه نمایش اطلاعات تکمیلی */
+        .show-modal-btn-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 70px auto;
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+        }
+        
+        .btn-glow-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-glow-wrapper:before,
+        .btn-glow-wrapper:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: var(--theme-color);
-            /* color: #fff; */
+            border-radius: 50px;
+            opacity: 0.3;
+            filter: blur(15px);
+            animation: pulseGlow 3s infinite alternate;
+            z-index: -1;
+        }
+        
+        .btn-glow-wrapper:after {
+            animation-delay: 1.5s;
+            opacity: 0.2;
+            filter: blur(20px);
+        }
+        
+        @keyframes pulseGlow {
+            0% { transform: scale(0.85); opacity: 0.3; }
+            100% { transform: scale(1.05); opacity: 0.7; }
+        }
+
+        .show-modal-button {
+            background: linear-gradient(135deg, var(--theme-color) 0%, #393939 100%);
+            color: #fff;
             border: none;
-            padding: 15px 30px;
-            border-radius: 30px;
+            padding: 16px 30px;
+            border-radius: 50px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            /* box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15); */
+            z-index: 1;
+            letter-spacing: 0.5px;
+            width: 100%;
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+            animation: floatButton 5s ease-in-out infinite;
+        }
+        
+        @keyframes floatButton {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        .show-modal-button .btn-text {
+            margin-left: 10px;
+            position: relative;
             transition: all 0.3s ease;
-            font-family: inherit;
+        }
+        
+        .show-modal-button .btn-icon {
+            width: 30px;
+            height: 30px;
+            /* background: rgba(255, 255, 255, 0.2); */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .show-modal-button .btn-icon i {
+            font-size: 14px;
+            transition: all 0.3s ease;
+            animation: arrowBounce 2s infinite;
+        }
+        
+        @keyframes arrowBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
+
+        .show-modal-button:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+            transform: translateX(-100%);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .show-modal-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px) scale(1.02);
+            /* box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1); */
+        }
+
+        .show-modal-button:hover:before {
+            transform: translateX(0);
+        }
+        
+        .show-modal-button:hover .btn-icon {
+            /* background: rgba(255, 255, 255, 0.3); */
+            transform: scale(1.1) rotate(360deg);
+        }
+        
+        .show-modal-button:hover .btn-text {
+            transform: scale(1.05);
+        }
+
+        .show-modal-button:active {
+            transform: translateY(1px) scale(0.98);
+            /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+        }
+
+        .show-modal-btn-wrapper:before,
+        .show-modal-btn-wrapper:after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--theme-color), transparent);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .show-modal-btn-wrapper:before {
+            right: calc(100% + 20px);
+        }
+        
+        .show-modal-btn-wrapper:after {
+            left: calc(100% + 20px);
+        }
+
+        @media (max-width: 768px) {
+            .show-modal-btn-wrapper {
+                margin: 50px auto;
+                max-width: 280px;
+            }
+
+            .show-modal-button {
+                padding: 14px 25px;
+                font-size: 14px;
+            }
+            
+            .show-modal-btn-wrapper:before,
+            .show-modal-btn-wrapper:after {
+                width: 40px;
+            }
+            
+            .show-modal-button .btn-icon {
+                width: 25px;
+                height: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .show-modal-btn-wrapper:before,
+            .show-modal-btn-wrapper:after {
+                display: none;
+            }
+        }
+        
+        /* استایل برای دکمه بستن مودال در سایزهای مختلف */
+        /* تبلت */
+        @media (max-width: 1024px) {
+            .fullscreen-modal .close-modal {
+                left: 20px;
+                top: 20px;
+                width: 38px;
+                height: 38px;
+                font-size: 28px;
+            }
+        }
+
+        /* موبایل بزرگ */
+        @media (max-width: 768px) {
+            .fullscreen-modal .close-modal {
+                left: 15px;
+                top: 15px;
+                width: 35px;
+                height: 35px;
+                font-size: 24px;
+            }
+        }
+
+        /* موبایل کوچک */
+        @media (max-width: 480px) {
+            .fullscreen-modal .close-modal {
+                left: 10px;
+                top: 10px;
+                width: 32px;
+                height: 32px;
+                font-size: 22px;
+            }
         }
 
         /* استایل‌های اضافی برای بهبود اسکرول */
@@ -1117,14 +1310,6 @@
             .fullscreen-modal .modal-body {
                 padding: 0;
                 direction: rtl;
-            }
-
-            .fullscreen-modal .close-modal {
-                width: 35px;
-                height: 35px;
-                font-size: 24px;
-                left: 15px;
-                top: 15px;
             }
         }
     </style>
