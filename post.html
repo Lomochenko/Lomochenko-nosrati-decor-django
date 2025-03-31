@@ -160,8 +160,8 @@
             </header>
 
             <div class="wrapper">
-                <div class="container">
-                    <div class="news-content">
+                <div class="container-fluid">
+                    <div class="news-content container">
                         <div class="news-content-inner">
                             <div class="News-socials-wrapper">
 
@@ -226,7 +226,7 @@
                             </div>
                         </div>
                         <!-- parent category -->
-                        <section class="our-work work-under-header">
+                        <section class="our-work work-under-header section-margin">
                             <div class="pt-25 pb-35 box-gallery-vertical">
                                 <div class="container-fluid">
                                     <div class="row p-2 align-items-center h-100">
@@ -237,135 +237,334 @@
                                                 <span>Web Design</span>
                                             </div>
                                         </a>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </section>
-
                         <!-- end parent category -->
-                        <div class="comments-post m-section">
-                            <div class="comments-area section-margin">
-                                <div class="comments-title">
-                                    <h4 class="subtitle">Comments</h4>
-                                </div>
+                        <!-- contact us -->
+                        <div class="section-margin">
+                            <div class="row" dir="rtl">
+                                <div class="col-lg-6">
+                                    <div class="box-info-contact">
+                                        <h3>Start a new project?</h3>
+                                        <h5>Visit our studio at</h5>
+                                        <p>Sed ut perspiciatis unde omnis iste natus error sit vo
+                                            luptatem accusantium natus error sit omnis iste natus</p>
 
-                                <ol class="comment-list">
-                                    <li class="comment">
-                                        <div class="comment-body">
-                                            <div class="comment-text">
-                                                <div class="comment-date">January 23, 2019</div>
-                                                <div class="comment-info">
-                                                    <h6 class="comment-name">
-                                                        Diana Torres </h6>
-                                                </div>
-                                                <div class="text-holder">
-                                                    <p>Rassa id neque aliquam vestibulum morbi blandit in fermentum et
-                                                        sollicitudin ac orci
-                                                        phasellus egestas tellus velit ut tortor pretium viverra
-                                                        suspendisse
-                                                        potenti nullam ac
-                                                        tortor
-                                                        eu turpis egestas pretium.</p>
-                                                </div>
-                                                <a class="comment-reply-link" href="#"><i class="fas fa-reply"></i>
-                                                    reply</a>
-                                            </div>
-                                        </div>
-
-                                        <ul class="children">
-                                            <li class="comment">
-                                                <div class="comment-body">
-                                                    <div class="comment-text">
-                                                        <div class="comment-date">January 23, 2019</div>
-                                                        <div class="comment-info">
-                                                            <h6 class="comment-name">
-                                                                Diana Torres </h6>
-                                                        </div>
-                                                        <div class="text-holder">
-                                                            <p>Rassa id neque aliquam vestibulum morbi blandit in
-                                                                fermentum
-                                                                et sollicitudin ac orci
-                                                                phasellus egestas tellus velit ut tortor pretium viverra
-                                                                suspendisse potenti nullam ac
-                                                                tortor
-                                                                eu turpis egestas pretium.</p>
-                                                        </div>
-                                                        <a class="comment-reply-link" href="#"><i
-                                                                class="fas fa-reply"></i>
-                                                            reply</a>
-                                                    </div>
-                                                </div>
+                                        <ul>
+                                            <li class="d-flex justify-content-between">
+                                                <span>Phone</span>
+                                                <a href="#">+1 (800) 990 8877</a>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                <span>Email</span>
+                                                <a href="#">info@example.com</a>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                <span>Address</span>
+                                                <a href="#">778 NE 84th St Miami, FL</a>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-box">
+                                        <h3>Write A Comment</h3>
+                                        <form id="contact-form" class="form" method="post" action="contact.php"
+                                            data-toggle="validator">
+                                            <div class="messages"></div>
+                                            <div class="input__wrap controls">
+                                                <div class="form-group">
 
-                                    <li class="comment">
-                                        <div class="comment-body">
-                                            <div class="comment-text">
-                                                <div class="comment-date">January 23, 2019</div>
-                                                <div class="comment-info">
-                                                    <h6 class="comment-name">
-                                                        Diana Torres </h6>
+                                                    <div class="entry">
+                                                        <label>What's your name?</label>
+                                                        <input id="form_name" type="text" name="name" class="text-left"
+                                                            placeholder="Type your name" required="required"
+                                                            data-error="name is required.">
+                                                    </div>
+                                                    <div class="help-block with-errors"></div>
                                                 </div>
-                                                <div class="text-holder">
-                                                    <p>Rassa id neque aliquam vestibulum morbi blandit in fermentum et
-                                                        sollicitudin ac orci
-                                                        phasellus egestas tellus velit ut tortor pretium viverra
-                                                        suspendisse
-                                                        potenti nullam ac
-                                                        tortor
-                                                        eu turpis egestas pretium.</p>
+
+                                                <div class="form-group">
+                                                    <div class="entry">
+                                                        <label>What's your email address?</label>
+                                                        <input id="form_email" type="email" name="email"
+                                                            class="text-left" placeholder="Type your Email Address"
+                                                            required="required" data-error="Valid email is required.">
+                                                    </div>
+                                                    <div class="help-block with-errors"></div>
                                                 </div>
-                                                <a class="comment-reply-link" href="#"><i class="fas fa-reply"></i>
-                                                    reply</a>
+
+                                                <div class="form-group">
+                                                    <div class="entry">
+                                                        <label>What's up?</label>
+                                                        <textarea id="form_message" class="form-control text-left"
+                                                            name="message" placeholder="Tell us about you and the world"
+                                                            required="required"
+                                                            data-error="Please,leave us a message."></textarea>
+                                                    </div>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+
+                                                <div class="image-zoom" data-dsn="parallax">
+                                                    <button>Send Message</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end contact us -->
+                    </div>
+                    <!-- faq accordion section -->
+                    <section class="container-fluid">
+                        <div class="container header-hero">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="contenet-hero">
+                                        <h5 class="fz-18">FAQ</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- accordion FAQ -->
+                        <div class="tt-accordion tt-ac-borders pb-80 cursor-link" dir="rtl">
+                            <div class="tt-accordion-item anim-fadeinup cursor-link">
+                                <div class="tt-accordion-heading">
+                                    <div class="tt-ac-head cursor-alter">
+                                        <h3 class="tt-ac-head-title cursor-alter">قیمت محصولات چقدر است؟</h3>
+                                        <!-- <div class="tt-accordion-subtext">Mauris mauris ante</div> -->
+                                    </div>
 
-                                </ol>
+                                    <div class="tt-accordion-caret-wrap">
+                                        <div class="tt-accordion-caret-inner magnetic-item">
+                                            <div class="tt-accordion-caret"></div>
+                                        </div>
+                                    </div> <!-- /.tt-accordion-caret-wrap -->
+                                </div> <!-- /.tt-accordion-heading -->
+                                <div class="tt-accordion-content max-width-800">
+                                    <p>به دلیل نوسانات قیمتی، لطفاً برای استعلام قیمت با ما تماس بگیرید.</p>
+                                </div> <!-- /.tt-accordion-content -->
+                            </div> <!-- /.tt-accordion-item -->
+
+                            <div class="tt-accordion-item anim-fadeinup cursor-link">
+                                <div class="tt-accordion-heading">
+                                    <div class="tt-ac-head cursor-alter">
+                                        <h3 class="tt-ac-head-title cursor-alter">کابینت‌ها سفارشی هستند؟</h3>
+                                        <!-- <div class="tt-accordion-subtext">Vivamus nisi</div> -->
+                                    </div>
+
+                                    <div class="tt-accordion-caret-wrap">
+                                        <div class="tt-accordion-caret-inner magnetic-item">
+                                            <div class="tt-accordion-caret"></div>
+                                        </div>
+                                    </div> <!-- /.tt-accordion-caret-wrap -->
+                                </div> <!-- /.tt-accordion-heading -->
+                                <div class="tt-accordion-content max-width-800">
+                                    <p>بله، تمامی طراحی‌ها مطابق نیاز و سلیقه شما انجام می‌شود.</p>
+                                </div> <!-- /.tt-accordion-content -->
+                            </div> <!-- /.tt-accordion-item -->
+
+                            <div class="tt-accordion-item anim-fadeinup cursor-link">
+                                <div class="tt-accordion-heading">
+                                    <div class="tt-ac-head cursor-alter">
+                                        <h3 class="tt-ac-head-title cursor-alter">مدت زمان اجرای پروژه چقدر است؟</h3>
+                                        <!-- <div class="tt-accordion-subtext">Nam min proin eget</div> -->
+                                    </div>
+
+                                    <div class="tt-accordion-caret-wrap">
+                                        <div class="tt-accordion-caret-inner magnetic-item">
+                                            <div class="tt-accordion-caret"></div>
+                                        </div>
+                                    </div> <!-- /.tt-accordion-caret-wrap -->
+                                </div> <!-- /.tt-accordion-heading -->
+                                <div class="tt-accordion-content max-width-800">
+                                    <p>بسته به نوع و متراژ پروژه متفاوت است لطفاً با ما در تماس باشید.
+                                    </p>
+                                </div> <!-- /.tt-accordion-content -->
+                            </div> <!-- /.tt-accordion-item -->
+
+                            <div class="tt-accordion-item anim-fadeinup cursor-link">
+                                <div class="tt-accordion-heading">
+                                    <div class="tt-ac-head cursor-alter">
+                                        <h3 class="tt-ac-head-title cursor-alter">آیا امکان مشاوره قبل از سفارش وجود
+                                            دارد؟
+                                        </h3>
+                                        <!-- <div class="tt-accordion-subtext">Condimentum sit amet</div> -->
+                                    </div>
+
+                                    <div class="tt-accordion-caret-wrap">
+                                        <div class="tt-accordion-caret-inner magnetic-item">
+                                            <div class="tt-accordion-caret"></div>
+                                        </div>
+                                    </div> <!-- /.tt-accordion-caret-wrap -->
+                                </div> <!-- /.tt-accordion-heading -->
+                                <div class="tt-accordion-content max-width-800">
+                                    <p>بله، مشاوره رایگان برای انتخاب طراحی و متریال ارائه می‌شود.</p>
+                                </div> <!-- /.tt-accordion-content -->
+                            </div> <!-- /.tt-accordion-item -->
+                            <div class="tt-accordion-item anim-fadeinup cursor-link">
+                                <div class="tt-accordion-heading">
+                                    <div class="tt-ac-head cursor-alter">
+                                        <h3 class="tt-ac-head-title cursor-alter">بله، خدمات بازسازی و بهینه‌سازی فضا را
+                                            هم
+                                            ارائه می‌دهیم.</h3>
+                                        <!-- <div class="tt-accordion-subtext">Condimentum sit amet</div> -->
+                                    </div>
+
+                                    <div class="tt-accordion-caret-wrap">
+                                        <div class="tt-accordion-caret-inner magnetic-item">
+                                            <div class="tt-accordion-caret"></div>
+                                        </div>
+                                    </div> <!-- /.tt-accordion-caret-wrap -->
+                                </div> <!-- /.tt-accordion-heading -->
+                                <div class="tt-accordion-content max-width-800">
+                                    <p>بله، مشاوره رایگان برای انتخاب طراحی و متریال ارائه می‌شود.</p>
+                                </div> <!-- /.tt-accordion-content -->
+                            </div> <!-- /.tt-accordion-item -->
+                            <div class="tt-accordion-item anim-fadeinup cursor-link">
+                                <div class="tt-accordion-heading">
+                                    <div class="tt-ac-head cursor-alter">
+                                        <h3 class="tt-ac-head-title cursor-alter">امکان ارسال کابینت به شهرهای دیگر هست؟
+                                        </h3>
+                                        <!-- <div class="tt-accordion-subtext">Condimentum sit amet</div> -->
+                                    </div>
+
+                                    <div class="tt-accordion-caret-wrap">
+                                        <div class="tt-accordion-caret-inner magnetic-item">
+                                            <div class="tt-accordion-caret"></div>
+                                        </div>
+                                    </div> <!-- /.tt-accordion-caret-wrap -->
+                                </div> <!-- /.tt-accordion-heading -->
+                                <div class="tt-accordion-content max-width-800">
+                                    <p>خدمات ما بیشتر در هشتگرد ارائه می‌شود؛ برای جزئیات تماس بگیرید.</p>
+                                </div> <!-- /.tt-accordion-content -->
+                            </div> <!-- /.tt-accordion-item -->
+
+                        </div>
+                        <!-- end accordion FAQ -->
+                    </section>
+                    <!-- end faq accordion section -->
+                    <!-- start comment -->
+                    <div class="container comments-post m-section">
+                        <div class="comments-area section-margin">
+                            <div class="comments-title">
+                                <h4 class="subtitle">Comments</h4>
                             </div>
 
-                            <div class="comments-form">
-                                <div class="comments-title">
-                                    <h4 class="subtitle">Comments</h4>
+                            <ol class="comment-list">
+                                <li class="comment">
+                                    <div class="comment-body">
+                                        <div class="comment-text">
+                                            <div class="comment-date">January 23, 2019</div>
+                                            <div class="comment-info">
+                                                <h6 class="comment-name">
+                                                    Diana Torres </h6>
+                                            </div>
+                                            <div class="text-holder">
+                                                <p>Rassa id neque aliquam vestibulum morbi blandit in fermentum et
+                                                    sollicitudin ac orci
+                                                    phasellus egestas tellus velit ut tortor pretium viverra
+                                                    suspendisse
+                                                    potenti nullam ac
+                                                    tortor
+                                                    eu turpis egestas pretium.</p>
+                                            </div>
+                                            <a class="comment-reply-link" href="#"><i class="fas fa-reply"></i>
+                                                reply</a>
+                                        </div>
+                                    </div>
+
+                                    <ul class="children">
+                                        <li class="comment">
+                                            <div class="comment-body">
+                                                <div class="comment-text">
+                                                    <div class="comment-date">January 23, 2019</div>
+                                                    <div class="comment-info">
+                                                        <h6 class="comment-name">
+                                                            Diana Torres </h6>
+                                                    </div>
+                                                    <div class="text-holder">
+                                                        <p>Rassa id neque aliquam vestibulum morbi blandit in
+                                                            fermentum
+                                                            et sollicitudin ac orci
+                                                            phasellus egestas tellus velit ut tortor pretium viverra
+                                                            suspendisse potenti nullam ac
+                                                            tortor
+                                                            eu turpis egestas pretium.</p>
+                                                    </div>
+                                                    <a class="comment-reply-link" href="#"><i class="fas fa-reply"></i>
+                                                        reply</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="comment">
+                                    <div class="comment-body">
+                                        <div class="comment-text">
+                                            <div class="comment-date">January 23, 2019</div>
+                                            <div class="comment-info">
+                                                <h6 class="comment-name">
+                                                    Diana Torres </h6>
+                                            </div>
+                                            <div class="text-holder">
+                                                <p>Rassa id neque aliquam vestibulum morbi blandit in fermentum et
+                                                    sollicitudin ac orci
+                                                    phasellus egestas tellus velit ut tortor pretium viverra
+                                                    suspendisse
+                                                    potenti nullam ac
+                                                    tortor
+                                                    eu turpis egestas pretium.</p>
+                                            </div>
+                                            <a class="comment-reply-link" href="#"><i class="fas fa-reply"></i>
+                                                reply</a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ol>
+                        </div>
+
+                        <div class="comments-form">
+                            <div class="comments-title">
+                                <h4 class="subtitle">Comments</h4>
+                            </div>
+
+                            <form>
+                                <div class="entry">
+                                    <label>What's your name?</label>
+                                    <input id="form_name" type="text" name="name" placeholder="Type your name"
+                                        required="required" data-error="name is required.">
                                 </div>
 
-                                <form>
-                                    <div class="entry">
-                                        <label>What's your name?</label>
-                                        <input id="form_name" type="text" name="name" placeholder="Type your name"
-                                            required="required" data-error="name is required.">
-                                    </div>
+                                <div class="entry">
+                                    <label>What's your email address?</label>
+                                    <input id="form_email" type="email" name="email"
+                                        placeholder="Type your Email Address" required="required"
+                                        data-error="Valid email is required.">
+                                </div>
 
-                                    <div class="entry">
-                                        <label>What's your email address?</label>
-                                        <input id="form_email" type="email" name="email"
-                                            placeholder="Type your Email Address" required="required"
-                                            data-error="Valid email is required.">
-                                    </div>
+                                <div class="entry">
+                                    <label>comment?</label>
+                                    <textarea id="" class="form-control" name="message"
+                                        placeholder="Tell us about you and the world" required="required"
+                                        data-error="Your comment"></textarea>
+                                </div>
 
-                                    <div class="entry">
-                                        <label>comment?</label>
-                                        <textarea id="" class="form-control" name="message"
-                                            placeholder="Tell us about you and the world" required="required"
-                                            data-error="Your comment"></textarea>
-                                    </div>
-
-                                    <center class="submit-div image-zoom" data-dsn="parallax">
-                                        <input name="submit" type="submit" class="custom-btn" value="submit"
-                                            data-parallex>
-                                    </center>
-                                </form>
-                            </div>
-
-
+                                <center class="submit-div image-zoom" data-dsn="parallax">
+                                    <input name="submit" type="submit" class="custom-btn" value="submit" data-parallex>
+                                </center>
+                            </form>
                         </div>
 
 
                     </div>
-
-
+                    <!-- end comment -->
                 </div>
                 <!-- recommended projects -->
                 <section class="our-work work-under-header" data-dsn-col="3" dir="ltr">
