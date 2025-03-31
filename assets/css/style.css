@@ -2677,6 +2677,7 @@ textarea,
   font-size: 14px;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.69);
+  text-align: left;
 }
 
 .v-light input,
