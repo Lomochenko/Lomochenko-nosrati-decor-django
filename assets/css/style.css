@@ -12877,7 +12877,7 @@ label {
 .comments-post .comments-area .comment .comment-body .comment-author {
   position: relative;
   top: 10px;
-  left: 0;
+  right: 0;
   width: 64px;
   height: 64px;
   display: block;
@@ -12899,18 +12899,18 @@ label {
 }
 
 .comments-post .comments-area .comment .comment-body .comment-text {
-  padding: 0 0 0 90px;
+  padding: 0 90px 0 0;
   min-height: 64px;
 }
 
 @media only screen and (max-width: 575px) {
   .comments-post .comments-area .comment .comment-body .comment-text {
-    padding: 0 0 0 40px;
+    padding: 0 40px 0 0;
   }
 }
 
 .comments-post .comments-area .comment .comment-body .comment-text .comment-date {
-  float: right;
+  float: left;
   margin: 3px 5px 0 0;
   font-size: 13px;
   color: #b0b0b0;
@@ -12919,7 +12919,7 @@ label {
 .comments-post .comments-area .comment .comment-body .comment-text .comment-date:before {
   content: "/";
   display: inline-block;
-  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .comments-post .comments-area .comment .comment-body .comment-text .comment-info {
@@ -12928,7 +12928,7 @@ label {
 }
 
 .comments-post .comments-area .comment .comment-body .comment-text .comment-info .comment-name {
-  float: left;
+  float: right;
   margin: 0;
   font-weight: 700;
   font-size: 17px;
@@ -12985,8 +12985,8 @@ label {
   position: absolute;
   bottom: 0;
   height: 1px;
-  left: -0.025em;
-  right: -0.075em;
+  right: -0.025em;
+  left: -0.075em;
   background: rgba(82, 83, 85, 0.19);
   background-size: 100% 100%;
   -webkit-transition: 190ms opacity cubic-bezier(0.895, 0.03, 0.685, 0.22), background 670ms linear 417ms;
@@ -13009,18 +13009,18 @@ label {
 }
 
 .comments-post .comments-area .comment .children {
-  margin-left: 90px;
+  margin-right: 90px;
 }
 
 @media only screen and (max-width: 575px) {
   .comments-post .comments-area .comment .children {
-    margin-left: 40px;
+    margin-right: 40px;
   }
 }
 
 @media only screen and (max-width: 400px) {
   .comments-post .comments-area .comment .children {
-    margin-left: 20px;
+    margin-right: 20px;
   }
 }
 
