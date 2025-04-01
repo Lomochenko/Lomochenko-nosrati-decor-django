@@ -3179,6 +3179,7 @@ body.modal-open {
   padding: 15px !important;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent) !important;
   z-index: 2 !important;
+  text-align: right;
 }
 
 .box-gallery-vertical .cap span {
