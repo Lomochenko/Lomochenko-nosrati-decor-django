@@ -13967,7 +13967,7 @@ footer .copyright-social ul li:last-child {
 .footer .footer-links .footer-block .footer-social ul li {
   display: inline-block;
   list-style: none;
-  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .footer .footer-links .footer-block .footer-social ul li:last-child {
