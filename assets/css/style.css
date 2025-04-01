@@ -43,45 +43,6 @@
 /* -------------------------------------------------------
                      mixins
 -------------------------------------------------------- */
-/* حذف هایلایت آبی برای همه عناصر قابل کلیک */
-a,
-button,
-input,
-select,
-textarea,
-[tabindex]:not([tabindex="-1"]) {
-  -webkit-tap-highlight-color: transparent !important;
-  outline: none !important;
-}
-
-/* اگر می‌خواهید outline را در هنگام فوکس با کیبورد حفظ کنید (برای دسترسی‌پذیری) */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-[tabindex]:not([tabindex="-1"]):focus-visible {
-  outline: 2px solid #DCD7C9 !important;
-}
-
-/* برای حذف خط نقطه‌چین در فایرفاکس */
-a:focus,
-button:focus {
-  outline: none !important;
-}
-
-/* برای حذف border آبی در سافاری */
-*:focus {
-  outline: none !important;
-}
-
-/* برای استایل‌های اختصاصی در هنگام لمس برای حفظ تجربه کاربری */
-a:active,
-button:active {
-  transform: translateY(1px);
-  /* افکت فشرده شدن کوچک */
-}
-
 .post-full-content.single-post>*:not(.gallery),
 .post-full-content.single-post>*:not(.wp-block-quote)>p,
 .widget_text.single-post>*:not(.gallery),
