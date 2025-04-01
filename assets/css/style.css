@@ -385,6 +385,14 @@
   outline: none;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
 }
 
 /**
@@ -394,6 +402,39 @@
 html {
   -webkit-text-size-adjust: 100%;
   /* 2 */
+}
+
+.app-like {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  cursor: pointer !important;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+li {
+  -webkit-user-select: text !important;
+  -khtml-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+.no-select {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
 }
 
 /* Sections
@@ -440,6 +481,51 @@ pre {
  */
 a {
   background-color: transparent;
+  text-decoration-style: unset !important;
+  -webkit-text-decoration-style: unset !important;
+  text-decoration-color: unset !important;
+  -webkit-text-decoration-color: unset !important;
+}
+
+a,
+button,
+input,
+select,
+textarea,
+[role="button"],
+[tabindex]:not([tabindex="-1"]) {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-appearance: none !important;
+
+  /* حذف استایل پیش‌فرض در برخی مرورگرها */
+  text-decoration-skip-ink: none !important;
+  -webkit-text-decoration-skip: none !important;
+}
+
+input,
+textarea {
+  -webkit-user-select: auto !important;
+  -khtml-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+  user-select: auto !important;
+}
+
+/* استایل برای حالت اکتیو (فشرده شدن) */
+a:active,
+button:active,
+[role="button"]:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+/* برای همه لینک‌هایی که عکس دارند */
+a img {
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
 }
 
 /**
@@ -1381,6 +1467,8 @@ body {
   font-weight: 500;
   margin: 0;
   text-rendering: optimizeLegibility;
+  -webkit-touch-callout: none !important;
+  overscroll-behavior: none !important;
 }
 
 .v-light body {
