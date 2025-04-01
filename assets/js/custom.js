@@ -309,7 +309,19 @@ function initCursor() {
                                     s = i.data("dsn-ajax");
                                 o.indexOf("#") >= 0 || void 0 === o || d && (d = !1, a().locked(), t.ajaxLoaderElemnt(!0), "slider" === s ? t.ajaxSlider(i, o) : "list" === s ? t.ajaxList(i, o) : "next-project" === s ? t.ajaxNextProject(i, o) : "blog" === s ? t.ajaxBlog(i, o) : "next" === s ? t.ajaxNext(i, o) : "work" === s ? t.ajaxWork(i, o) : t.ajaxNormal(o))
                             }
-                        })
+                        });
+                        
+                        // اضافه کردن قابلیت انتقال صفحه برای همه لینک‌های داخلی
+                        e("a").not(".effect-ajax").not("[href^='#']").not("[href^='mailto:']").not("[href^='tel:']").not("[href^='javascript:']").not("[href^='https://']").not("[href^='http://']").on("click", function(n) {
+                            if (!t.isEffectAjax()) {
+                                var href = e(this).attr("href");
+                                // بررسی اینکه آیا لینک داخلی است یا خیر
+                                if (href && href.indexOf(window.location.hostname) !== -1 || !/^https?:\/\//.test(href)) {
+                                    n.preventDefault();
+                                    d && (d = !1, a().locked(), t.ajaxLoaderElemnt(!0), t.ajaxNormal(href));
+                                }
+                            }
+                        });
                     },
                     ajaxSlider: function (t, n) {
                         let a = this,
@@ -468,34 +480,52 @@ function initCursor() {
                     },
                     ajaxNormal: function (t) {
                         var n = this,
-                            s = e('<div class="class-ajax-loader"></div>');
+                            s = e('<div class="modern-ajax-loader"></div>');
+                        
+                        // افزودن لودر چرخشی مدرن
+                        var loaderSvg = e('<div class="loader-circle"><svg viewBox="25 25 50 50"><circle cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>');
+                        
                         s.css({
                             position: "fixed",
                             left: 0,
                             top: 0,
                             width: "100%",
                             height: "100%",
-                            backgroundColor: "#1b1b1b",
+                            backgroundColor: "rgba(18, 18, 18, 0.9)",
+                            backdropFilter: "blur(10px)",
                             zIndex: 900199,
-                            "-webkit-transform": "translateY(100%)",
-                            "-ms-transform": "translateY(100%)",
-                            transform: "translateY(100%)"
-                        }), o.append(s);
-                        var r = e(document).height() - i.height() - 150;
-                        i.scrollTop() < r && TweenMax.fromTo(this.main_root, 1, {
-                            y: 0
-                        }, {
-                            y: -150,
-                            ease: Expo.easeIn
-                        }), TweenMax.to(s, 1, {
-                            y: 0,
-                            ease: Expo.easeIn,
-                            onComplete: function () {
-                                n.loader(t, function () {
-                                    dsnGrid.scrollTop(0, 1), a().unlocked()
-                                })
-                            }
-                        })
+                            opacity: 0,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center"
+                        });
+                        
+                        s.append(loaderSvg);
+                        o.append(s);
+                        
+                        // افزودن استایل برای لودر
+                        var style = e('<style>.modern-ajax-loader .loader-circle {width: 60px; height: 60px; position: relative;}'
+                            + '.modern-ajax-loader .loader-circle svg {animation: loader-rotate 1.5s linear infinite; width: 100%; height: 100%;}'
+                            + '.modern-ajax-loader .loader-circle circle {stroke: #fff; stroke-dasharray: 150, 200; stroke-dashoffset: -10; stroke-linecap: round; animation: loader-dash 1.2s ease-in-out infinite;}'
+                            + '@keyframes loader-rotate {100% {transform: rotate(360deg);}}'
+                            + '@keyframes loader-dash {0% {stroke-dasharray: 1, 200; stroke-dashoffset: 0;}'
+                            + '50% {stroke-dasharray: 89, 200; stroke-dashoffset: -35px;}'
+                            + '100% {stroke-dasharray: 89, 200; stroke-dashoffset: -125px;}}'
+                            + '</style>');
+                        o.append(style);
+                        
+                        // شروع پیش‌بارگذاری صفحه جدید حتی قبل از نمایش کامل لودر
+                        setTimeout(function() {
+                            n.loader(t, function () {
+                                dsnGrid.scrollTop(0, 1), a().unlocked()
+                            });
+                        }, 50);
+                        
+                        // انیمیشن ظاهر شدن لودر - سریع‌تر شده
+                        TweenMax.to(s, 0.4, {
+                            opacity: 1,
+                            ease: Power2.easeInOut
+                        });
                     },
                     hideAnimate: function () {
                         TweenMax.set(e(s.animateTextAjax), {
@@ -504,10 +534,10 @@ function initCursor() {
                         })
                     },
                     showAnimate: function () {
-                        TweenMax.staggerTo(e(s.animateTextAjax), 1, {
+                        TweenMax.staggerTo(e(s.animateTextAjax), 0.8, {
                             autoAlpha: 1,
                             y: 0
-                        }, .2)
+                        }, .15)
                     },
                     loader: function (t, n) {
                         var a = this;
@@ -515,23 +545,27 @@ function initCursor() {
                             var r = e(this);
                             a.hideAnimate(), "error" !== o ? (a.ajaxTitle(t), history.pushState(null, null, t), setTimeout(function () {
                                 a.animateAjaxEnd(), void 0 !== n && n(r, i, s), d = !0
-                            }, 500)) : window.location = t
+                            }, 200)) : window.location = t
                         })
                     },
                     animateAjaxEnd: function () {
                         var n = this;
                         n.main_root.css("transform", "");
-                        let a = e(".class-ajax-loader");
-                        TweenMax.fromTo(a, 1, {
-                            y: "0%"
-                        }, {
-                            y: "-100%",
-                            ease: Expo.easeIn,
+                        let a = e(".modern-ajax-loader");
+                        
+                        // انیمیشن خروج لودر - سریع‌تر شده
+                        TweenMax.to(a, 0.4, {
+                            opacity: 0,
+                            ease: Power2.easeInOut,
                             onComplete: function () {
-                                a.remove(), n.ajaxLoaderElemnt(), n.showAnimate()
-                            },
-                            delay: 1
-                        }), t(!0)
+                                a.remove();
+                                e("style:contains('.modern-ajax-loader')").remove();
+                                n.ajaxLoaderElemnt();
+                                n.showAnimate();
+                            }
+                        });
+                        
+                        t(!0);
                     },
                     ajaxNext: function (t, n) {
                         var a = e('.dsn-imgs[data-dsn-next="blog"]'),
