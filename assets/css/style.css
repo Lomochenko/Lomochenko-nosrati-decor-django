@@ -6682,6 +6682,7 @@ body.nav-active .dsn-nav-bar .icon-m .menu-icon__line {
 
 .our-services {
   position: relative;
+  text-align: right;
 }
 
 .our-services .row>*:nth-of-type(n + 3) .services-item {
