@@ -5944,7 +5944,7 @@ body.nav-active .dsn-nav-bar .icon-m .menu-icon__line {
 @media only screen and (max-width: 575px) {
   .dsn-pagination .next .button-m span {
     top: 25px;
-    left: -5px;
+    left: 0;
   }
 }
 
