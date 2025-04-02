@@ -10699,12 +10699,12 @@ body.nav-active .dsn-nav-bar .icon-m .menu-icon__line {
 
 .header-single-post .inner-box .post-info .blog-post-date {
   padding-right: 20px;
-  padding-bottom: 8px;
+  padding-top: 8px;
 }
 
 .header-single-post .inner-box .post-info .blog-post-cat a {
   padding-right: 8px;
-  padding-bottom: 8px;
+  padding-top: 8px;
 }
 
 .header-single-post .inner-box .title-box {
