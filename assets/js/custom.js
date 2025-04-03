@@ -1062,311 +1062,311 @@ function initCursor() {
     (navigator.userAgent.match(/Edge/i) || navigator.userAgent.match(/MSIE 10/i) || navigator.userAgent.match(/MSIE 9/i)) && e(".cursor").css("display", "none"),
     
     // پیش‌نمایشگر مدرن جدید 
-    function () {
-        const luxuryPreloader = {
-            $body: e('body'),
-            $preloader: null,
-            $logo: null,
-            $counter: null,
-            $progressBar: null,
-            $scene: null,
-            $decorElements: null,
-            progress: 0,
-            timeouts: [],
+    // function () {
+    //     const luxuryPreloader = {
+    //         $body: e('body'),
+    //         $preloader: null,
+    //         $logo: null,
+    //         $counter: null,
+    //         $progressBar: null,
+    //         $scene: null,
+    //         $decorElements: null,
+    //         progress: 0,
+    //         timeouts: [],
             
-            init: function() {
-                // ساخت عناصر پیش‌نمایشگر
-                this.createElements();
-                // شروع لودر
-                this.start();
+    //         init: function() {
+    //             // ساخت عناصر پیش‌نمایشگر
+    //             this.createElements();
+    //             // شروع لودر
+    //             this.start();
                 
-                // جلوگیری از اسکرول صفحه در زمان نمایش پیش‌نمایشگر
-                this.$body.css('overflow', 'hidden');
-            },
+    //             // جلوگیری از اسکرول صفحه در زمان نمایش پیش‌نمایشگر
+    //             this.$body.css('overflow', 'hidden');
+    //         },
             
-            createElements: function() {
-                // ساخت کانتینر اصلی
-                this.$preloader = e('<div class="luxury-preloader"></div>');
+    //         createElements: function() {
+    //             // ساخت کانتینر اصلی
+    //             this.$preloader = e('<div class="luxury-preloader"></div>');
                 
-                // ساخت صحنه اصلی برای المان‌های تزئینی
-                this.$scene = e('<div class="preloader-scene"></div>');
+    //             // ساخت صحنه اصلی برای المان‌های تزئینی
+    //             this.$scene = e('<div class="preloader-scene"></div>');
                 
-                // افزودن خطوط عمودی تزئینی
-                for (let i = 0; i < 5; i++) {
-                    const line = e('<div class="preloader-decor-element vertical-line"></div>');
-                    line.css({
-                        'left': 20 + (i * 15) + '%',
-                        'animation-delay': (i * 0.1) + 's'
-                    });
-                    this.$scene.append(line);
-                }
+    //             // افزودن خطوط عمودی تزئینی
+    //             for (let i = 0; i < 5; i++) {
+    //                 const line = e('<div class="preloader-decor-element vertical-line"></div>');
+    //                 line.css({
+    //                     'left': 20 + (i * 15) + '%',
+    //                     'animation-delay': (i * 0.1) + 's'
+    //                 });
+    //                 this.$scene.append(line);
+    //             }
                 
-                // لوگو و عنوان
-                this.$logo = e(`
-                    <div class="preloader-logo">
-                        <h1>نصرتی دکور</h1>
-                        <h2>INTERIOR DESIGN</h2>
-                    </div>
-                `);
+    //             // لوگو و عنوان
+    //             this.$logo = e(`
+    //                 <div class="preloader-logo">
+    //                     <h1>نصرتی دکور</h1>
+    //                     <h2>INTERIOR DESIGN</h2>
+    //                 </div>
+    //             `);
                 
-                // شمارنده درصد
-                this.$counter = e('<div class="preloader-counter">0</div>');
+    //             // شمارنده درصد
+    //             this.$counter = e('<div class="preloader-counter">0</div>');
                 
-                // نوار پیشرفت
-                this.$progressBar = e(`
-                    <div class="preloader-progress-bar">
-                        <div class="preloader-progress-track">
-                            <div class="preloader-progress-fill"></div>
-                        </div>
-                    </div>
-                `);
+    //             // نوار پیشرفت
+    //             this.$progressBar = e(`
+    //                 <div class="preloader-progress-bar">
+    //                     <div class="preloader-progress-track">
+    //                         <div class="preloader-progress-fill"></div>
+    //                     </div>
+    //                 </div>
+    //             `);
                 
-                // افزودن عناصر به DOM
-                this.$preloader.append(this.$scene);
-                this.$preloader.append(this.$logo);
-                this.$preloader.append(this.$counter);
-                this.$preloader.append(this.$progressBar);
+    //             // افزودن عناصر به DOM
+    //             this.$preloader.append(this.$scene);
+    //             this.$preloader.append(this.$logo);
+    //             this.$preloader.append(this.$counter);
+    //             this.$preloader.append(this.$progressBar);
                 
-                // افزودن استایل‌های مورد نیاز
-                this.addStyles();
+    //             // افزودن استایل‌های مورد نیاز
+    //             this.addStyles();
                 
-                // افزودن به بدنه سند
-                this.$body.prepend(this.$preloader);
-            },
+    //             // افزودن به بدنه سند
+    //             this.$body.prepend(this.$preloader);
+    //         },
             
-            addStyles: function() {
-                // اضافه کردن استایل‌ها به صورت داینامیک
-                const style = e(`
-                <style>
-                    .luxury-preloader {
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: #0F0F0F;
-                        z-index: 9999999;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-                        overflow: hidden;
-                    }
+    //         addStyles: function() {
+    //             // اضافه کردن استایل‌ها به صورت داینامیک
+    //             const style = e(`
+    //             <style>
+    //                 .luxury-preloader {
+    //                     position: fixed;
+    //                     top: 0;
+    //                     left: 0;
+    //                     width: 100%;
+    //                     height: 100%;
+    //                     background-color: #0F0F0F;
+    //                     z-index: 9999999;
+    //                     display: flex;
+    //                     flex-direction: column;
+    //                     justify-content: center;
+    //                     align-items: center;
+    //                     overflow: hidden;
+    //                 }
                     
-                    .preloader-scene {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        z-index: 1;
-                    }
+    //                 .preloader-scene {
+    //                     position: absolute;
+    //                     width: 100%;
+    //                     height: 100%;
+    //                     display: flex;
+    //                     justify-content: center;
+    //                     align-items: center;
+    //                     z-index: 1;
+    //                 }
                     
-                    .preloader-decor-element {
-                        position: absolute;
-                        opacity: 0;
-                    }
+    //                 .preloader-decor-element {
+    //                     position: absolute;
+    //                     opacity: 0;
+    //                 }
                     
-                    .vertical-line {
-                        width: 1px;
-                        height: 0;
-                        background-color: rgba(220, 215, 201, 0.2);
-                        animation: lineGrow 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-                    }
+    //                 .vertical-line {
+    //                     width: 1px;
+    //                     height: 0;
+    //                     background-color: rgba(220, 215, 201, 0.2);
+    //                     animation: lineGrow 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    //                 }
                     
-                    .preloader-logo {
-                        position: relative;
-                        z-index: 2;
-                        text-align: center;
-                        opacity: 0;
-                        transform: translateY(20px);
-                        animation: fadeInUp 1s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
-                    }
+    //                 .preloader-logo {
+    //                     position: relative;
+    //                     z-index: 2;
+    //                     text-align: center;
+    //                     opacity: 0;
+    //                     transform: translateY(20px);
+    //                     animation: fadeInUp 1s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
+    //                 }
                     
-                    .preloader-logo h1 {
-                        font-size: 48px;
-                        font-weight: 300;
-                        letter-spacing: 4px;
-                        color: #DCD7C9;
-                        margin-bottom: 10px;
-                    }
+    //                 .preloader-logo h1 {
+    //                     font-size: 48px;
+    //                     font-weight: 300;
+    //                     letter-spacing: 4px;
+    //                     color: #DCD7C9;
+    //                     margin-bottom: 10px;
+    //                 }
                     
-                    .preloader-logo h2 {
-                        font-size: 14px;
-                        letter-spacing: 8px;
-                        color: rgba(220, 215, 201, 0.7);
-                        text-transform: uppercase;
-                    }
+    //                 .preloader-logo h2 {
+    //                     font-size: 14px;
+    //                     letter-spacing: 8px;
+    //                     color: rgba(220, 215, 201, 0.7);
+    //                     text-transform: uppercase;
+    //                 }
                     
-                    .preloader-counter {
-                        position: relative;
-                        z-index: 2;
-                        font-size: 60px;
-                        font-weight: 200;
-                        color: #DCD7C9;
-                        margin-top: 40px;
-                        opacity: 0;
-                        transform: translateY(20px);
-                        animation: fadeInUp 1s cubic-bezier(0.19, 1, 0.22, 1) 0.7s forwards;
-                    }
+    //                 .preloader-counter {
+    //                     position: relative;
+    //                     z-index: 2;
+    //                     font-size: 60px;
+    //                     font-weight: 200;
+    //                     color: #DCD7C9;
+    //                     margin-top: 40px;
+    //                     opacity: 0;
+    //                     transform: translateY(20px);
+    //                     animation: fadeInUp 1s cubic-bezier(0.19, 1, 0.22, 1) 0.7s forwards;
+    //                 }
                     
-                    .preloader-progress-bar {
-                        position: relative;
-                        z-index: 2;
-                        width: 200px;
-                        margin-top: 20px;
-                        opacity: 0;
-                        transform: translateY(20px);
-                        animation: fadeInUp 1s cubic-bezier(0.19, 1, 0.22, 1) 0.9s forwards;
-                    }
+    //                 .preloader-progress-bar {
+    //                     position: relative;
+    //                     z-index: 2;
+    //                     width: 200px;
+    //                     margin-top: 20px;
+    //                     opacity: 0;
+    //                     transform: translateY(20px);
+    //                     animation: fadeInUp 1s cubic-bezier(0.19, 1, 0.22, 1) 0.9s forwards;
+    //                 }
                     
-                    .preloader-progress-track {
-                        width: 100%;
-                        height: 1px;
-                        background-color: rgba(220, 215, 201, 0.3);
-                    }
+    //                 .preloader-progress-track {
+    //                     width: 100%;
+    //                     height: 1px;
+    //                     background-color: rgba(220, 215, 201, 0.3);
+    //                 }
                     
-                    .preloader-progress-fill {
-                        width: 0%;
-                        height: 1px;
-                        background-color: #DCD7C9;
-                        transition: width 0.2s ease-out;
-                    }
+    //                 .preloader-progress-fill {
+    //                     width: 0%;
+    //                     height: 1px;
+    //                     background-color: #DCD7C9;
+    //                     transition: width 0.2s ease-out;
+    //                 }
                     
-                    @keyframes lineGrow {
-                        0% {
-                            height: 0;
-                            opacity: 0;
-                        }
-                        20% {
-                            opacity: 1;
-                        }
-                        100% {
-                            height: 80%;
-                            opacity: 1;
-                        }
-                    }
+    //                 @keyframes lineGrow {
+    //                     0% {
+    //                         height: 0;
+    //                         opacity: 0;
+    //                     }
+    //                     20% {
+    //                         opacity: 1;
+    //                     }
+    //                     100% {
+    //                         height: 80%;
+    //                         opacity: 1;
+    //                     }
+    //                 }
                     
-                    @keyframes fadeInUp {
-                        0% {
-                            opacity: 0;
-                            transform: translateY(30px);
-                        }
-                        100% {
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                    }
+    //                 @keyframes fadeInUp {
+    //                     0% {
+    //                         opacity: 0;
+    //                         transform: translateY(30px);
+    //                     }
+    //                     100% {
+    //                         opacity: 1;
+    //                         transform: translateY(0);
+    //                     }
+    //                 }
                     
-                    @keyframes fadeOut {
-                        0% {
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                        100% {
-                            opacity: 0;
-                            transform: translateY(-50px);
-                        }
-                    }
-                </style>
-                `);
+    //                 @keyframes fadeOut {
+    //                     0% {
+    //                         opacity: 1;
+    //                         transform: translateY(0);
+    //                     }
+    //                     100% {
+    //                         opacity: 0;
+    //                         transform: translateY(-50px);
+    //                     }
+    //                 }
+    //             </style>
+    //             `);
                 
-                e('head').append(style);
-            },
+    //             e('head').append(style);
+    //         },
             
-            start: function() {
-                // مقدار اولیه
-                this.progress = 0;
-                this.$counter.text('0');
-                this.$progressBar.find('.preloader-progress-fill').css('width', '0%');
+    //         start: function() {
+    //             // مقدار اولیه
+    //             this.progress = 0;
+    //             this.$counter.text('0');
+    //             this.$progressBar.find('.preloader-progress-fill').css('width', '0%');
                 
-                // شبیه‌سازی پیشرفت لودینگ
-                const simulateLoading = () => {
-                    // افزایش پیشرفت به شکل طبیعی
-                    if (this.progress < 99) {
-                        // پیشرفت با سرعت متغیر
-                        if (this.progress < 30) {
-                            // سریع در ابتدا
-                            this.progress += Math.random() * 2.5;
-                        } else if (this.progress < 60) {
-                            // کند در میانه
-                            this.progress += Math.random() * 1.2;
-                        } else if (this.progress < 95) {
-                            // بسیار کند در انتها
-                            this.progress += Math.random() * 0.4;
-                        }
+    //             // شبیه‌سازی پیشرفت لودینگ
+    //             const simulateLoading = () => {
+    //                 // افزایش پیشرفت به شکل طبیعی
+    //                 if (this.progress < 99) {
+    //                     // پیشرفت با سرعت متغیر
+    //                     if (this.progress < 30) {
+    //                         // سریع در ابتدا
+    //                         this.progress += Math.random() * 2.5;
+    //                     } else if (this.progress < 60) {
+    //                         // کند در میانه
+    //                         this.progress += Math.random() * 1.2;
+    //                     } else if (this.progress < 95) {
+    //                         // بسیار کند در انتها
+    //                         this.progress += Math.random() * 0.4;
+    //                     }
                         
-                        // آپدیت عناصر ظاهری
-                        const progressInt = Math.floor(this.progress);
-                        this.$counter.text(progressInt);
-                        this.$progressBar.find('.preloader-progress-fill').css('width', progressInt + '%');
+    //                     // آپدیت عناصر ظاهری
+    //                     const progressInt = Math.floor(this.progress);
+    //                     this.$counter.text(progressInt);
+    //                     this.$progressBar.find('.preloader-progress-fill').css('width', progressInt + '%');
                         
-                        // ادامه شبیه‌سازی
-                        const delay = 80 + Math.random() * 70;
-                        const timeout = setTimeout(simulateLoading, delay);
-                        this.timeouts.push(timeout);
-                    }
-                };
+    //                     // ادامه شبیه‌سازی
+    //                     const delay = 80 + Math.random() * 70;
+    //                     const timeout = setTimeout(simulateLoading, delay);
+    //                     this.timeouts.push(timeout);
+    //                 }
+    //             };
                 
-                // شروع شبیه‌سازی
-                simulateLoading();
+    //             // شروع شبیه‌سازی
+    //             simulateLoading();
                 
-                // وقتی صفحه کاملا لود شد، پیش‌نمایشگر را مخفی کن
-                i.on('load', () => {
-                    // پاکسازی تایمرها
-                    this.timeouts.forEach(timeout => clearTimeout(timeout));
+    //             // وقتی صفحه کاملا لود شد، پیش‌نمایشگر را مخفی کن
+    //             i.on('load', () => {
+    //                 // پاکسازی تایمرها
+    //                 this.timeouts.forEach(timeout => clearTimeout(timeout));
                     
-                    // تکمیل پیشرفت
-                    this.$counter.text('100');
-                    this.$progressBar.find('.preloader-progress-fill').css('width', '100%');
+    //                 // تکمیل پیشرفت
+    //                 this.$counter.text('100');
+    //                 this.$progressBar.find('.preloader-progress-fill').css('width', '100%');
                     
-                    // کمی تاخیر برای نمایش 100%
-                    setTimeout(() => {
-                        // انیمیشن خروج عناصر با ترتیب معکوس
-                        this.$counter.css({
-                            'animation': 'fadeOut 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards'
-                        });
+    //                 // کمی تاخیر برای نمایش 100%
+    //                 setTimeout(() => {
+    //                     // انیمیشن خروج عناصر با ترتیب معکوس
+    //                     this.$counter.css({
+    //                         'animation': 'fadeOut 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards'
+    //                     });
                         
-                        setTimeout(() => {
-                            this.$progressBar.css({
-                                'animation': 'fadeOut 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards'
-                            });
-                        }, 100);
+    //                     setTimeout(() => {
+    //                         this.$progressBar.css({
+    //                             'animation': 'fadeOut 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards'
+    //                         });
+    //                     }, 100);
                         
-                        setTimeout(() => {
-                            this.$logo.css({
-                                'animation': 'fadeOut 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards'
-                            });
-                        }, 200);
+    //                     setTimeout(() => {
+    //                         this.$logo.css({
+    //                             'animation': 'fadeOut 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards'
+    //                         });
+    //                     }, 200);
                         
-                        // اسلاید آپ کل پیش‌نمایشگر
-                        setTimeout(() => {
-                            this.$preloader.css({
-                                'transform': 'translateY(-100%)',
-                                'transition': 'transform 1s cubic-bezier(0.7, 0, 0.3, 1)'
-                            });
+    //                     // اسلاید آپ کل پیش‌نمایشگر
+    //                     setTimeout(() => {
+    //                         this.$preloader.css({
+    //                             'transform': 'translateY(-100%)',
+    //                             'transition': 'transform 1s cubic-bezier(0.7, 0, 0.3, 1)'
+    //                         });
                             
-                            // فعال کردن اسکرول پس از مخفی شدن
-                            setTimeout(() => {
-                                this.$body.css('overflow', '');
+    //                         // فعال کردن اسکرول پس از مخفی شدن
+    //                         setTimeout(() => {
+    //                             this.$body.css('overflow', '');
                                 
-                                // حذف از DOM پس از اتمام انیمیشن
-                                setTimeout(() => {
-                                    this.$preloader.remove();
-                                }, 300);
-                            }, 800);
-                        }, 400);
-                    }, 600);
-                });
-            }
-        };
+    //                             // حذف از DOM پس از اتمام انیمیشن
+    //                             setTimeout(() => {
+    //                                 this.$preloader.remove();
+    //                             }, 300);
+    //                         }, 800);
+    //                     }, 400);
+    //                 }, 600);
+    //             });
+    //         }
+    //     };
         
-        // راه‌اندازی پیش‌نمایشگر لوکس
-        e(document).ready(() => {
-            luxuryPreloader.init();
-        });
-    }(),
+    //     // راه‌اندازی پیش‌نمایشگر لوکس
+    //     e(document).ready(() => {
+    //         luxuryPreloader.init();
+    //     });
+    // }(),
         
         function () {
             var t = e(".menu-icon");
