@@ -1712,3 +1712,120 @@ function initCursor() {
     });
     
 })(jQuery);
+
+// تابع مودال تمام صفحه برای نمایش اطلاعات تکمیلی
+function initFullscreenModal() {
+    const modal = document.getElementById('fullscreen-modal');
+    const modalBody = modal.querySelector('.modal-body');
+    const closeBtn = modal.querySelector('.close-modal');
+    const showBtn = document.getElementById('show-modal-btn');
+    const seoContent = document.querySelector('.seo-content');
+    let isModalOpen = false;
+    let scrollPosition = 0;
+
+    // جلوگیری از اسکرول صفحه اصلی
+    function preventScroll(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    // نمایش مودال
+    function showModal() {
+        if (isModalOpen) return;
+        
+        // ذخیره موقعیت اسکرول
+        scrollPosition = window.scrollY;
+        
+        // کپی کردن محتوای SEO به داخل مودال
+        modalBody.innerHTML = seoContent.innerHTML;
+        
+        // نمایش مودال
+        modal.style.display = 'block';
+        document.body.classList.add('modal-open');
+        
+        // اضافه کردن کلاس show با تاخیر برای انیمیشن
+        requestAnimationFrame(() => {
+            modal.classList.add('show');
+            isModalOpen = true;
+        });
+
+        // اضافه کردن event listener برای جلوگیری از اسکرول روی مودال
+        modal.addEventListener('wheel', preventScroll, { passive: false });
+        modal.addEventListener('touchmove', preventScroll, { passive: false });
+    }
+
+    // بستن مودال
+    function closeModal() {
+        if (!isModalOpen) return;
+        
+        modal.classList.remove('show');
+        isModalOpen = false;
+        
+        // حذف event listener‌ها
+        modal.removeEventListener('wheel', preventScroll);
+        modal.removeEventListener('touchmove', preventScroll);
+        
+        // حذف محتوا و مخفی کردن مودال بعد از اتمام انیمیشن
+        setTimeout(() => {
+            modal.style.display = 'none';
+            modalBody.innerHTML = '';
+            document.body.classList.remove('modal-open');
+            
+            // بازگشت به موقعیت اسکرول قبلی
+            window.scrollTo(0, scrollPosition);
+        }, 300);
+    }
+
+    // مدیریت اسکرول در مودال
+    function handleModalScroll(e) {
+        const delta = e.deltaY || e.detail || e.wheelDelta;
+        const modalBodyScrollTop = modalBody.scrollTop;
+        const modalBodyScrollHeight = modalBody.scrollHeight;
+        const modalBodyHeight = modalBody.clientHeight;
+
+        if (
+            (modalBodyScrollTop === 0 && delta < 0) || 
+            (modalBodyScrollTop + modalBodyHeight >= modalBodyScrollHeight && delta > 0)
+        ) {
+            e.preventDefault();
+        }
+        
+        e.stopPropagation();
+    }
+
+    // رویدادها
+    showBtn.addEventListener('click', showModal);
+    closeBtn.addEventListener('click', closeModal);
+    
+    // اضافه کردن event listener برای اسکرول در modal-body
+    modalBody.addEventListener('wheel', handleModalScroll, { passive: false });
+    modalBody.addEventListener('touchmove', (e) => {
+        e.stopPropagation();
+    }, { passive: true });
+    
+    // بستن با کلیک خارج از محتوا
+    modal.addEventListener('click', (e) => {
+        if (!modalBody.contains(e.target) && !closeBtn.contains(e.target)) {
+            closeModal();
+        }
+    });
+
+    // بستن با کلید ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isModalOpen) {
+            closeModal();
+        }
+    });
+}
+
+// راه‌اندازی مودال و سایر قابلیت‌ها در زمان آماده شدن صفحه
+$(document).ready(function() {
+    // راه‌اندازی مودال نمایش اطلاعات تکمیلی
+    if (document.getElementById('fullscreen-modal')) {
+        initFullscreenModal();
+    }
+    
+    // تنظیم کلاس active برای منوی موبایل
+    setActiveNavItem();
+});
