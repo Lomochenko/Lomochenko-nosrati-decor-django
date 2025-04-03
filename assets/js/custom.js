@@ -1,3 +1,40 @@
+// Passive Event Listeners Polyfill - کد زیر مشکل هشدارهای مربوط به event listener های غیر passive را حل می‌کند
+(function() {
+    // تست پشتیبانی مرورگر از passive event listeners
+    var supportsPassive = false;
+    try {
+        var opts = Object.defineProperty({}, 'passive', {
+            get: function() {
+                supportsPassive = true;
+                return true;
+            }
+        });
+        window.addEventListener('test', null, opts);
+        window.removeEventListener('test', null, opts);
+    } catch (e) {}
+
+    // تغییر رفتار addEventListener برای پشتیبانی از jQuery قدیمی
+    if (supportsPassive) {
+        var originalAddEventListener = EventTarget.prototype.addEventListener;
+        EventTarget.prototype.addEventListener = function(type, listener, options) {
+            if (type === 'touchstart' || type === 'touchmove' || type === 'wheel' || type === 'mousewheel') {
+                var opts = options;
+                if (typeof options === 'object') {
+                    opts = Object.assign({}, options);
+                } else {
+                    opts = {
+                        capture: !!options,
+                        passive: true
+                    };
+                }
+                originalAddEventListener.call(this, type, listener, opts);
+            } else {
+                originalAddEventListener.call(this, type, listener, options);
+            }
+        };
+    }
+})();
+
 function SliderProject() {
     $(".slider-project .swiper-container").each(function (e) {
         new Swiper(this, {
@@ -226,23 +263,32 @@ function initCursor() {
     const cursorClose = document.querySelector('.cursor-close');
     const cursorLink = document.querySelector('.cursor-link');
 
+    // بررسی وجود عناصر قبل از استفاده از آن‌ها
+    if (!cursor || !cursorHelper || !cursorView || !cursorClose || !cursorLink) {
+        return; // اگر هر کدام از عناصر موجود نباشند، از تابع خارج شو
+    }
+
     // Add cursor effect for tt-accordion-item
     const accordionItems = document.querySelectorAll('.tt-accordion-item');
+    if (accordionItems.length === 0) {
+        return; // اگر هیچ آیتم آکاردئونی وجود نداشته باشد، از تابع خارج شو
+    }
+
     accordionItems.forEach(item => {
         item.addEventListener('mouseenter', () => {
-            cursor.classList.add('cursor-hover');
-            cursorHelper.classList.add('cursor-hover');
-            cursorView.classList.add('cursor-hover');
-            cursorClose.classList.add('cursor-hover');
-            cursorLink.classList.add('cursor-hover');
+            cursor && cursor.classList.add('cursor-hover');
+            cursorHelper && cursorHelper.classList.add('cursor-hover');
+            cursorView && cursorView.classList.add('cursor-hover');
+            cursorClose && cursorClose.classList.add('cursor-hover');
+            cursorLink && cursorLink.classList.add('cursor-hover');
         });
 
         item.addEventListener('mouseleave', () => {
-            cursor.classList.remove('cursor-hover');
-            cursorHelper.classList.remove('cursor-hover');
-            cursorView.classList.remove('cursor-hover');
-            cursorClose.classList.remove('cursor-hover');
-            cursorLink.classList.remove('cursor-hover');
+            cursor && cursor.classList.remove('cursor-hover');
+            cursorHelper && cursorHelper.classList.remove('cursor-hover');
+            cursorView && cursorView.classList.remove('cursor-hover');
+            cursorClose && cursorClose.classList.remove('cursor-hover');
+            cursorLink && cursorLink.classList.remove('cursor-hover');
         });
     });
 }
@@ -912,34 +958,7 @@ function initCursor() {
                         n.controller.control = a, a.controller.control = n
                     }
                 }
-            }().run(), e("a.vid").YouTubePopUp(), contactValidator(),
-            function initMobileNav() {
-                // تشخیص صفحه فعلی و اضافه کردن کلاس active
-                const currentPage = window.location.pathname.split('/').pop();
-                e('.mobile-bottom-nav__item-content').each(function() {
-                    if (e(this).attr('href') === currentPage) {
-                        e(this).addClass('active');
-                    }
-                });
-
-                // اضافه کردن افکت ripple هنگام کلیک
-                e('.mobile-bottom-nav__item-content').on('click', function(event) {
-                    let x = event.pageX - e(this).offset().left;
-                    let y = event.pageY - e(this).offset().top;
-
-                    let ripple = e('<span class="ripple"></span>');
-                    ripple.css({
-                        left: x + 'px',
-                        top: y + 'px'
-                    });
-
-                    e(this).append(ripple);
-
-                    setTimeout(function() {
-                        ripple.remove();
-                    }, 600);
-                });
-            }()
+            }().run(), e("a.vid").YouTubePopUp(), contactValidator()
     }
 
     function n() {
@@ -1614,3 +1633,82 @@ function initCursor() {
         })
     }), contactValidator(), n()
 }(jQuery);
+
+// اضافه کردن عملکرد ناوبری موبایل با سینتکس jQuery
+(function($) {
+    // تابع تنظیم کلاس active بر اساس URL فعلی
+    function setActiveNavItem() {
+        // پیدا کردن منوی موبایل
+        var $mobileNav = $('.nav-mobile-app');
+        if ($mobileNav.length <= 0) return;
+        
+        // همیشه منو نمایش داده شود
+        $mobileNav.addClass('nav-visible').removeClass('nav-hidden');
+        
+        // گرفتن URL فعلی
+        var currentPath = window.location.pathname;
+        var currentPage = currentPath.split('/').pop() || 'home.html';
+        
+        // اگر URL خالی است، احتمالاً در صفحه اصلی هستیم
+        if (currentPage === '') {
+            currentPage = 'home.html';
+        }
+        
+        // برای بررسی اگر در صفحه مشاوره هستیم
+        var isConsultingPage = window.location.hash === '#consulting';
+        
+        // حذف کلاس active از همه آیتم‌ها
+        $mobileNav.find('.nav-item').removeClass('active');
+        
+        // اضافه کردن کلاس active به آیتم مناسب
+        $mobileNav.find('.nav-item').each(function() {
+            var $item = $(this);
+            var href = $item.attr('href');
+            
+            // تشخیص آیتم فعال بر اساس URL
+            if (
+                href === currentPage || 
+                ((currentPage === 'home.html' || currentPage === 'index.html') && 
+                 (href === 'home.html' || href === 'index.html')) ||
+                (isConsultingPage && href === 'consulting.html')
+            ) {
+                $item.addClass('active');
+            }
+        });
+        
+        // افزودن افکت ripple هنگام کلیک
+        $mobileNav.find('.nav-item').off('click.ripple').on('click.ripple', function(event) {
+            var $this = $(this);
+            var offset = $this.offset();
+            var x = event.pageX - offset.left;
+            var y = event.pageY - offset.top;
+            
+            var $ripple = $('<span class="ripple"></span>');
+            $ripple.css({
+                left: x + 'px',
+                top: y + 'px'
+            });
+            
+            $this.append($ripple);
+            
+            setTimeout(function() {
+                $ripple.remove();
+            }, 600);
+            
+            // تنظیم کلاس active برای این آیتم
+            $mobileNav.find('.nav-item').removeClass('active');
+            $this.addClass('active');
+        });
+    }
+    
+    // اجرای تابع هنگام بارگذاری صفحه
+    $(document).ready(function() {
+        setActiveNavItem();
+    });
+    
+    // اجرای مجدد تابع پس از تغییر صفحه با AJAX (در صورت وجود)
+    $(document).on('ajaxComplete', function() {
+        setActiveNavItem();
+    });
+    
+})(jQuery);

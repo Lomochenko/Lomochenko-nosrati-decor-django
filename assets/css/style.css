@@ -3935,9 +3935,201 @@ a:active {
   transition: 0.5s;
 }
 
-@media (min-width: 991px) {
+/* @media (min-width: 991px) {
   .nav-mobile {
     visibility: hidden;
+  }
+} */
+/* ====== استایل منوی پایین جدید ====== */
+.nav-mobile-app {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  justify-content: center !important;
+  padding-bottom: max(0px, env(safe-area-inset-bottom)) !important;
+  transition: transform 0.4s ease, opacity 0.3s ease !important;
+  will-change: transform, opacity !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+}
+
+.mobile-nav-spacer {
+  height: 100px !important;
+  width: 100% !important;
+}
+
+/* کلاس‌های مخفی کردن و نمایش منو */
+.nav-mobile-app.nav-hidden {
+  transform: translateY(100%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.nav-mobile-app.nav-visible {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* کانتینر اصلی منو */
+.nav-container {
+  width: 85% !important;
+  max-width: 400px !important;
+  margin-bottom: 15px !important;
+  background: rgba(20, 20, 20, 0.85) !important;
+  border-radius: 25px !important;
+  padding: 8px 0 !important;
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+/* آیتم‌های منو */
+.nav-item {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 60px !important;
+  height: 55px !important;
+  z-index: 1 !important;
+  text-decoration: none !important;
+}
+
+/* آیکون‌های منو */
+.nav-icon {
+  font-size: 22px !important;
+  color: #999 !important;
+  transition: all 0.3s ease !important;
+  transform: translateY(0) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* عنوان آیتم‌ها */
+.nav-text {
+  font-size: 11px !important;
+  color: #999 !important;
+  margin-top: 3px !important;
+  font-weight: 600 !important;
+  opacity: 0.9 !important;
+  transform: translateY(0) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* نشانگر آیتم فعال */
+.nav-indicator {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(135deg, #007CF0 0%, #00DFD8 100%) !important;
+  opacity: 0 !important;
+  border-radius: 16px !important;
+  transform: scale(0.6) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  z-index: 1 !important;
+}
+
+/* حالت فعال آیتم */
+.nav-item.active .nav-indicator {
+  opacity: 0.15 !important;
+  transform: scale(0.85) !important;
+}
+
+.nav-item.active .nav-icon,
+.nav-item.active .nav-text {
+  color: #fff !important;
+  transform: translateY(-1px) !important;
+}
+
+/* اثر ripple برای کلیک */
+.nav-item .ripple {
+  position: absolute !important;
+  width: 60px !important;
+  height: 60px !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  border-radius: 50% !important;
+  transform: scale(0) !important;
+  animation: rippleEffect 0.5s linear !important;
+  z-index: 0 !important;
+}
+
+/* انیمیشن ripple */
+@keyframes rippleEffect {
+  to {
+    transform: scale(1.5) !important;
+    opacity: 0 !important;
+  }
+}
+
+/* انیمیشن ورود منو */
+.nav-container {
+  animation: slideUp 0.5s cubic-bezier(0.17, 0.67, 0.4, 1.47) !important;
+  transform-origin: bottom center !important;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%) scale(0.8) !important;
+    opacity: 0 !important;
+  }
+
+  100% {
+    transform: translateY(0) scale(1) !important;
+    opacity: 1 !important;
+  }
+}
+
+/* انیمیشن هاور */
+.nav-item:not(.active):hover .nav-icon {
+  transform: translateY(-3px) !important;
+  color: #bbb !important;
+}
+
+.nav-item:not(.active):hover .nav-text {
+  color: #bbb !important;
+}
+
+/* رسپانسیو */
+@media only screen and (min-width: 992px) {
+  .nav-mobile-app {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .nav-mobile-app {
+    display: flex !important;
+  }
+
+  /* اضافه کردن فاصله از پایین برای footer */
+  footer {
+    margin-bottom: 95px !important;
+  }
+
+  /* اضافه کردن فاصله از پایین برای محتوای اصلی */
+  #dsn-scrollbar {
+    margin-bottom: 95px !important;
+  }
+}
+
+/* برای دستگاه‌های با notch */
+@supports (padding: max(0px)) {
+  .nav-mobile-app {
+    padding-bottom: max(15px, env(safe-area-inset-bottom)) !important;
   }
 }
 
@@ -13014,147 +13206,8 @@ section:has(#content-modal) {
   /* width: 77%; */
 }
 
-.mobile-bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  width: 100%;
-  height: 65px;
-  background-color: rgba(27, 27, 27, 0.95);
-  /* شفافیت بیشتر */
-  backdrop-filter: blur(10px);
-  /* افکت بلور پس‌زمینه */
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  /* خط نازک در بالا */
-  border-radius: 20px 20px 0 0;
-}
-
-.mobile-bottom-nav__item {
-  flex: 1;
-  text-align: center;
-  position: relative;
-}
-
-
-.mobile-bottom-nav__item-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #888;
-  text-decoration: none;
-  padding: 8px 0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-
-.mobile-bottom-nav__item-content i {
-  font-size: 20px;
-  margin-bottom: 5px;
-  transition: all 0.3s ease;
-}
-
-.mobile-bottom-nav__item-content span {
-  font-size: 12px;
-  transform: translateY(0);
-  transition: all 0.3s ease;
-  opacity: 0.8;
-}
-
-/* Hover Effects */
-.mobile-bottom-nav__item-content:hover {
-  color: #fff;
-  transform: translateY(-3px);
-}
-
-.mobile-bottom-nav__item-content:hover i {
-  transform: scale(1.2);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.mobile-bottom-nav__item-content:hover span {
-  opacity: 1;
-  transform: translateY(2px);
-}
-
-/* Active state with gradient */
-.mobile-bottom-nav__item-content.active {
-  color: #fff;
-}
-
-.mobile-bottom-nav__item-content.active::before {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 25px;
-  height: 3px;
-  background: linear-gradient(90deg, #007CF0, #00DFD8);
-  border-radius: 10px;
-  animation: glow 1.5s ease-in-out infinite alternate;
-}
-
-/* Ripple effect on click */
-.mobile-bottom-nav__item-content::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-}
-
-.mobile-bottom-nav__item-content:active::after {
-  opacity: 1;
-  animation: ripple 0.5s ease-out;
-}
-
-/* Animations */
-@keyframes glow {
-  from {
-    box-shadow: 0 0 5px #007CF0, 0 0 10px #007CF0, 0 0 15px #00DFD8;
-  }
-
-  to {
-    box-shadow: 0 0 10px #007CF0, 0 0 20px #007CF0, 0 0 25px #00DFD8;
-  }
-}
-
-@keyframes ripple {
-  0% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-/* Media Queries */
-@media only screen and (min-width: 992px) {
-  .mobile-bottom-nav {
-    display: none;
-    /* پنهان در دسکتاپ */
-  }
-}
 
 @media only screen and (max-width: 991px) {
-  .mobile-bottom-nav {
-    display: flex;
-    /* نمایش در موبایل و تبلت */
-  }
 
   /* اضافه کردن فاصله از پایین برای footer */
   footer {
@@ -13164,47 +13217,6 @@ section:has(#content-modal) {
   /* اضافه کردن فاصله از پایین برای محتوای اصلی */
   #dsn-scrollbar {
     margin-bottom: 65px;
-  }
-}
-
-/* برای دستگاه‌های با notch */
-@supports (padding: max(0px)) {
-  .mobile-bottom-nav {
-    padding-bottom: max(0px, env(safe-area-inset-bottom));
-    height: calc(65px + env(safe-area-inset-bottom));
-  }
-}
-
-/* Dark mode enhancement */
-@media (prefers-color-scheme: dark) {
-  .mobile-bottom-nav {
-    background-color: rgba(20, 20, 20, 0.95);
-  }
-}
-
-/* Add this to your CSS */
-.mobile-bottom-nav__item-content {
-  overflow: hidden;
-  /* برای محدود کردن ripple */
-}
-
-.ripple {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transform: scale(0);
-  animation: rippleEffect 0.6s linear;
-  width: 100px;
-  height: 100px;
-  margin-left: -50px;
-  margin-top: -50px;
-  pointer-events: none;
-}
-
-@keyframes rippleEffect {
-  to {
-    transform: scale(2.5);
-    opacity: 0;
   }
 }
 
