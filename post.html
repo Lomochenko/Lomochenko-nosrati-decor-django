@@ -20,6 +20,41 @@
 
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+    <!-- Improved JavaScript Loading -->
+    <script>
+        // Function to add JavaScript with high priority
+        function loadJSWithPriority() {
+            // Remove any existing script
+            var existingScript = document.querySelector('script[src="assets/js/all.min.js"]');
+            if (existingScript) {
+                existingScript.parentNode.removeChild(existingScript);
+            }
+
+            // Create a new script element
+            var script = document.createElement('script');
+            script.src = 'assets/js/all.min.js';
+
+            // Set high priority attributes
+            script.setAttribute('importance', 'high');
+            script.setAttribute('fetchpriority', 'high');
+
+            // Add the script to the head
+            document.head.appendChild(script);
+
+            // Show content when script is loaded
+            script.onload = function () {
+                document.querySelector('.main-root').style.visibility = 'visible';
+            };
+        }
+
+        // Call the function immediately
+        loadJSWithPriority();
+
+        // Also call it when DOM is ready (as a fallback)
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.main-root').style.visibility = 'visible';
+        });
+    </script>
 
     <!-- custom styles (optional) -->
     <link href="assets/css/all.min.css" rel="stylesheet" />
@@ -35,8 +70,8 @@
                 <div class="inner-header">
                     <div class="main-logo">
                         <a href="home.html">
-                            <img class="dark-logo" src="assets/img/logo-dark.png" alt="" />
-                            <img class="light-logo" src="assets/img/logo.png" alt="" />
+                            <img loading="lazy" class="dark-logo" src="assets/img/logo-dark.png" alt="" />
+                            <img loading="lazy" class="light-logo" src="assets/img/logo.png" alt="" />
                         </a>
                     </div>
                 </div>
@@ -84,8 +119,8 @@
             <div class="header-container">
                 <div class="logo main-logo">
                     <a href="home.html">
-                        <img class="dark-logo" src="assets/img/logo-dark.png" alt="" />
-                        <img class="light-logo" src="assets/img/logo.png" alt="" />
+                        <img loading="lazy" class="dark-logo" src="assets/img/logo-dark.png" alt="" />
+                        <img loading="lazy" class="light-logo" src="assets/img/logo.png" alt="" />
                     </a>
                 </div>
 
@@ -199,7 +234,7 @@
                                     elaborates on the motivation behind the creation of this site.
                                 </p>
 
-                                <img class="w-100" src="assets/img/blog/1.jpg" alt="">
+                                <img loading="lazy" class="w-100" src="assets/img/blog/1.jpg" alt="">
 
                                 <p>
                                     <a href="#">As a leading UX design agency,</a> we're often asked
@@ -221,7 +256,7 @@
                                     <div class="row p-2 align-items-center h-100">
                                         <!-- <div class="gallery-portfolio"> -->
                                         <a class="col-lg-6 col-xl-4 p-2" href="https://google.com">
-                                            <img src="assets/img/project/project4/6.jpg" alt="">
+                                            <img loading="lazy" src="assets/img/project/project4/6.jpg" alt="">
                                             <div class="cap">
                                                 <span>Web Design</span>
                                             </div>
@@ -539,7 +574,8 @@
                                 <div class="work-container">
                                     <div class="slick-slider cursor-grab">
                                         <div class="work-item slick-slide">
-                                            <img class="has-top-bottom" src="assets/img/project/project3/1.jpg" alt="">
+                                            <img loading="lazy" class="has-top-bottom"
+                                                src="assets/img/project/project3/1.jpg" alt="">
                                             <div class="item-border"></div>
                                             <div class="item-info">
                                                 <a href="project-7.html" data-dsn-grid="move-up" class="effect-ajax">
@@ -553,7 +589,8 @@
                                         </div>
 
                                         <div class="work-item slick-slide">
-                                            <img class="has-top-bottom" src="assets/img/project/project6/1.jpg" alt="">
+                                            <img loading="lazy" class="has-top-bottom"
+                                                src="assets/img/project/project6/1.jpg" alt="">
                                             <div class="item-border"></div>
                                             <div class="item-info">
                                                 <a href="project-6.html" data-dsn-grid="move-up" class="effect-ajax">
@@ -567,7 +604,8 @@
                                         </div>
 
                                         <div class="work-item slick-slide">
-                                            <img class="has-top-bottom" src="assets/img/project/project4/1.jpg" alt="">
+                                            <img loading="lazy" class="has-top-bottom"
+                                                src="assets/img/project/project4/1.jpg" alt="">
                                             <div class="item-border"></div>
                                             <div class="item-info">
                                                 <a href="project-4.html" data-dsn-grid="move-up" class="effect-ajax">
@@ -581,7 +619,8 @@
                                         </div>
 
                                         <div class="work-item slick-slide">
-                                            <img class="has-top-bottom" src="assets/img/project/project5/1.jpg" alt="">
+                                            <img loading="lazy" class="has-top-bottom"
+                                                src="assets/img/project/project5/1.jpg" alt="">
                                             <div class="item-border"></div>
                                             <div class="item-info">
                                                 <a href="project-5.html" data-dsn-grid="move-up" class="effect-ajax">
@@ -626,7 +665,7 @@
                                 <div class="col-md-3 dsn-col-footer">
                                     <div class="footer-block">
                                         <div class="footer-logo">
-                                            <a href=""><img src="assets/img/logo.png" alt=""></a>
+                                            <a href=""><img loading="lazy" src="assets/img/logo.png" alt=""></a>
                                         </div>
 
                                         <div class="footer-social">
@@ -735,8 +774,7 @@
             </a>
         </div>
     </nav>
-    <!-- Optional JavaScript -->
-    <script src="assets/js/all.min.js"></script>
+    <!-- JavaScript already loaded in head -->
 </body>
 
 </html>

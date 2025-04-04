@@ -19,7 +19,41 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700&display=swap" rel="stylesheet"> -->
 
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" /> <!-- Improved JavaScript Loading -->
+    <script>
+        // Function to add JavaScript with high priority
+        function loadJSWithPriority() {
+            // Remove any existing script
+            var existingScript = document.querySelector('script[src="assets/js/all.min.js"]');
+            if (existingScript) {
+                existingScript.parentNode.removeChild(existingScript);
+            }
+
+            // Create a new script element
+            var script = document.createElement('script');
+            script.src = 'assets/js/all.min.js';
+
+            // Set high priority attributes
+            script.setAttribute('importance', 'high');
+            script.setAttribute('fetchpriority', 'high');
+
+            // Add the script to the head
+            document.head.appendChild(script);
+
+            // Show content when script is loaded
+            script.onload = function () {
+                document.querySelector('.main-root').style.visibility = 'visible';
+            };
+        }
+
+        // Call the function immediately
+        loadJSWithPriority();
+
+        // Also call it when DOM is ready (as a fallback)
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.main-root').style.visibility = 'visible';
+        });
+    </script>
 
     <!-- custom styles (optional) -->
     <link href="assets/css/all.min.css" rel="stylesheet" />
@@ -34,8 +68,8 @@
                 <div class="inner-header">
                     <div class="main-logo">
                         <a href="home.html">
-                            <img class="dark-logo" src="assets/img/logo-dark.png" alt="" />
-                            <img class="light-logo" src="assets/img/logo.png" alt="" />
+                            <img loading="lazy" class="dark-logo" src="assets/img/logo-dark.png" alt="" />
+                            <img loading="lazy" class="light-logo" src="assets/img/logo.png" alt="" />
                         </a>
                     </div>
                 </div>
@@ -83,8 +117,8 @@
             <div class="header-container">
                 <div class="logo main-logo">
                     <a href="home.html">
-                        <img class="dark-logo" src="assets/img/logo-dark.png" alt="" />
-                        <img class="light-logo" src="assets/img/logo.png" alt="" />
+                        <img loading="lazy" class="dark-logo" src="assets/img/logo-dark.png" alt="" />
+                        <img loading="lazy" class="light-logo" src="assets/img/logo.png" alt="" />
                     </a>
                 </div>
 
@@ -147,7 +181,7 @@
                         <article class="post-list-item">
                             <figure>
                                 <a class="image-zoom" href="post.html" data-dsn-animate="up">
-                                    <img src="assets/img/blog/1.jpg" alt="">
+                                    <img loading="lazy" src="assets/img/blog/1.jpg" alt="">
                                 </a>
                             </figure>
                             <div class="post-list-item-content">
@@ -174,7 +208,7 @@
                         <article class="post-list-item">
                             <figure>
                                 <a class="image-zoom" href="post.html" data-dsn-animate="up">
-                                    <img src="assets/img/blog/4.jpg" alt="">
+                                    <img loading="lazy" src="assets/img/blog/4.jpg" alt="">
                                 </a>
                             </figure>
                             <div class="post-list-item-content">
@@ -233,7 +267,7 @@
                                 <div class="col-md-3 dsn-col-footer">
                                     <div class="footer-block">
                                         <div class="footer-logo">
-                                            <a href=""><img src="assets/img/logo.png" alt=""></a>
+                                            <a href=""><img loading="lazy" src="assets/img/logo.png" alt=""></a>
                                         </div>
 
                                         <div class="footer-social">
@@ -343,8 +377,7 @@
             </a>
         </div>
     </nav>
-    <!-- Optional JavaScript -->
-    <script src="assets/js/all.min.js"></script>
+    <!-- JavaScript already loaded in head -->
 </body>
 
 </html>

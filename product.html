@@ -19,6 +19,41 @@
 
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+    <!-- Improved JavaScript Loading -->
+    <script>
+        // Function to add JavaScript with high priority
+        function loadJSWithPriority() {
+            // Remove any existing script
+            var existingScript = document.querySelector('script[src="assets/js/all.min.js"]');
+            if (existingScript) {
+                existingScript.parentNode.removeChild(existingScript);
+            }
+
+            // Create a new script element
+            var script = document.createElement('script');
+            script.src = 'assets/js/all.min.js';
+
+            // Set high priority attributes
+            script.setAttribute('importance', 'high');
+            script.setAttribute('fetchpriority', 'high');
+
+            // Add the script to the head
+            document.head.appendChild(script);
+
+            // Show content when script is loaded
+            script.onload = function () {
+                document.querySelector('.main-root').style.visibility = 'visible';
+            };
+        }
+
+        // Call the function immediately
+        loadJSWithPriority();
+
+        // Also call it when DOM is ready (as a fallback)
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.main-root').style.visibility = 'visible';
+        });
+    </script>
 
     <!-- custom styles (optional) -->
     <link href="assets/css/all.min.css" rel="stylesheet" />
@@ -33,8 +68,8 @@
                 <div class="inner-header">
                     <div class="main-logo">
                         <a href="home.html">
-                            <img class="dark-logo" src="assets/img/logo-dark.png" alt="" />
-                            <img class="light-logo" src="assets/img/logo.png" alt="" />
+                            <img loading="lazy" class="dark-logo" src="assets/img/logo-dark.png" alt="" />
+                            <img loading="lazy" class="light-logo" src="assets/img/logo.png" alt="" />
                         </a>
                     </div>
                 </div>
@@ -82,8 +117,8 @@
             <div class="header-container">
                 <div class="logo main-logo">
                     <a href="home.html">
-                        <img class="dark-logo" src="assets/img/logo-dark.png" alt="" />
-                        <img class="light-logo" src="assets/img/logo.png" alt="" />
+                        <img loading="lazy" class="dark-logo" src="assets/img/logo-dark.png" alt="" />
+                        <img loading="lazy" class="light-logo" src="assets/img/logo.png" alt="" />
                     </a>
                 </div>
 
@@ -163,14 +198,14 @@
                         <div class="gallery-portfolio section-margin">
                             <a class="link-pop" href="assets/img/project/project4/6.jpg"
                                 data-source="assets/img/project/project4/6.jpg">
-                                <img src="assets/img/project/project4/6.jpg" alt="">
+                                <img loading="lazy" src="assets/img/project/project4/6.jpg" alt="">
                                 <div class="cap">
                                     <span>Web Design</span>
                                 </div>
                             </a>
                             <a class="link-pop" href="assets/img/project/project4/7.jpg"
                                 data-source="assets/img/project/project4/7.jpg">
-                                <img src="assets/img/project/project4/7.jpg" alt="">
+                                <img loading="lazy" src="assets/img/project/project4/7.jpg" alt="">
                                 <div class="cap">
                                     <span>Web Design</span>
                                 </div>
@@ -178,7 +213,7 @@
 
                             <a class="link-pop" href="assets/img/project/project4/8.jpg"
                                 data-source="assets/img/project/project4/8.jpg">
-                                <img src="assets/img/project/project4/8.jpg" alt="">
+                                <img loading="lazy" src="assets/img/project/project4/8.jpg" alt="">
                                 <div class="cap">
                                     <span>Web Design</span>
                                 </div>
@@ -186,7 +221,7 @@
 
                             <a class="link-pop" href="assets/img/project/project4/9.jpg"
                                 data-source="assets/img/project/project4/9.jpg">
-                                <img src="assets/img/project/project4/9.jpg" alt="">
+                                <img loading="lazy" src="assets/img/project/project4/9.jpg" alt="">
                                 <div class="cap">
                                     <span>Web Design</span>
                                 </div>
@@ -194,7 +229,7 @@
 
                             <a class="link-pop" href="assets/img/project/project4/10.jpg"
                                 data-source="assets/img/project/project4/10.jpg">
-                                <img src="assets/img/project/project4/10.jpg" alt="">
+                                <img loading="lazy" src="assets/img/project/project4/10.jpg" alt="">
                                 <div class="cap">
                                     <span>Web Design</span>
                                 </div>
@@ -202,7 +237,7 @@
 
                             <a class="link-pop" href="assets/img/project/project4/11.jpg"
                                 data-source="assets/img/project/project4/11.jpg">
-                                <img src="assets/img/project/project4/11.jpg" alt="">
+                                <img loading="lazy" src="assets/img/project/project4/11.jpg" alt="">
                                 <div class="cap">
                                     <span>Web Design</span>
                                 </div>
@@ -210,7 +245,7 @@
 
                             <a class="link-pop" href="assets/img/project/project4/12.jpg"
                                 data-source="assets/img/project/project4/12.jpg">
-                                <img src="assets/img/project/project4/12.jpg" alt="">
+                                <img loading="lazy" src="assets/img/project/project4/12.jpg" alt="">
                                 <div class="cap">
                                     <span>Web Design</span>
                                 </div>
@@ -493,8 +528,8 @@
                                         </blockquote>
                                         <!-- end important text -->
                                         <!-- img -->
-                                        <img class="w-100" src="assets/img/blog/1.jpg" alt="" itemprop="image"
-                                            loading="lazy">
+                                        <img loading="lazy" class="w-100" src="assets/img/blog/1.jpg" alt=""
+                                            itemprop="image" loading="lazy">
                                         <!-- end img -->
                                         <!-- normal text -->
                                         <p itemprop="description">
@@ -561,7 +596,8 @@
                                 </blockquote>
                                 <!-- end important text -->
                                 <!-- img -->
-                                <img class="w-100" src="assets/img/blog/1.jpg" alt="" itemprop="image" loading="lazy">
+                                <img loading="lazy" class="w-100" src="assets/img/blog/1.jpg" alt="" itemprop="image"
+                                    loading="lazy">
                                 <!-- end img -->
                                 <!-- normal text -->
                                 <p itemprop="description">
@@ -620,7 +656,8 @@
                                 <div class="work-container">
                                     <div class="slick-slider cursor-grab">
                                         <div class="work-item slick-slide">
-                                            <img class="has-top-bottom" src="assets/img/project/project3/1.jpg" alt="">
+                                            <img loading="lazy" class="has-top-bottom"
+                                                src="assets/img/project/project3/1.jpg" alt="">
                                             <div class="item-border"></div>
                                             <div class="item-info">
                                                 <a href="project-7.html" data-dsn-grid="move-up" class="effect-ajax">
@@ -634,7 +671,8 @@
                                         </div>
 
                                         <div class="work-item slick-slide">
-                                            <img class="has-top-bottom" src="assets/img/project/project6/1.jpg" alt="">
+                                            <img loading="lazy" class="has-top-bottom"
+                                                src="assets/img/project/project6/1.jpg" alt="">
                                             <div class="item-border"></div>
                                             <div class="item-info">
                                                 <a href="project-6.html" data-dsn-grid="move-up" class="effect-ajax">
@@ -648,7 +686,8 @@
                                         </div>
 
                                         <div class="work-item slick-slide">
-                                            <img class="has-top-bottom" src="assets/img/project/project4/1.jpg" alt="">
+                                            <img loading="lazy" class="has-top-bottom"
+                                                src="assets/img/project/project4/1.jpg" alt="">
                                             <div class="item-border"></div>
                                             <div class="item-info">
                                                 <a href="project-4.html" data-dsn-grid="move-up" class="effect-ajax">
@@ -662,7 +701,8 @@
                                         </div>
 
                                         <div class="work-item slick-slide">
-                                            <img class="has-top-bottom" src="assets/img/project/project5/1.jpg" alt="">
+                                            <img loading="lazy" class="has-top-bottom"
+                                                src="assets/img/project/project5/1.jpg" alt="">
                                             <div class="item-border"></div>
                                             <div class="item-info">
                                                 <a href="project-5.html" data-dsn-grid="move-up" class="effect-ajax">
@@ -696,7 +736,7 @@
                             <div class="slick-slider">
                                 <div class="item-new slick-slide">
                                     <div class="image" data-overlay="5">
-                                        <img src="assets/img/blog/1.jpg" alt="">
+                                        <img loading="lazy" src="assets/img/blog/1.jpg" alt="">
                                     </div>
                                     <div class="content">
                                         <div class="background"></div>
@@ -710,7 +750,7 @@
 
                                 <div class="item-new slick-slide">
                                     <div class="image" data-overlay="5">
-                                        <img src="assets/img/blog/2.jpg" alt="">
+                                        <img loading="lazy" src="assets/img/blog/2.jpg" alt="">
                                     </div>
                                     <div class="content">
                                         <div class="background"></div>
@@ -723,7 +763,7 @@
 
                                 <div class="item-new slick-slide">
                                     <div class="image" data-overlay="5">
-                                        <img src="assets/img/blog/3.jpg" alt="">
+                                        <img loading="lazy" src="assets/img/blog/3.jpg" alt="">
                                     </div>
                                     <div class="content">
                                         <div class="background"></div>
@@ -766,7 +806,7 @@
                             <div class="col-md-3 dsn-col-footer">
                                 <div class="footer-block">
                                     <div class="footer-logo">
-                                        <a href=""><img src="assets/img/logo.png" alt=""></a>
+                                        <a href=""><img loading="lazy" src="assets/img/logo.png" alt=""></a>
                                     </div>
 
                                     <div class="footer-social">
@@ -886,8 +926,7 @@
             </a>
         </div>
     </nav>
-    <!-- Optional JavaScript -->
-    <script src="assets/js/all.min.js"></script>
+    <!-- JavaScript already loaded in head -->
 
     <!-- Custom Popup -->
     <div id="custom-popup" class="custom-popup">
@@ -896,14 +935,14 @@
             <div class="form-box">
                 <span class="close-popup">&times;</span>
                 <h3>Write A Comment</h3>
-                <form id="contact-form" class="form" method="post" action="#" data-toggle="validator">
+                <form id="contact-form-2" class="form" method="post" action="#" data-toggle="validator">
                     <div class="messages"></div>
                     <div class="input__wrap controls">
                         <div class="form-group">
 
                             <div class="entry">
                                 <label>What's your name?</label>
-                                <input id="form_name" type="text" name="name" class="text-left"
+                                <input id="form_name_2" type="text" name="name" class="text-left"
                                     placeholder="Type your name" required="required" data-error="name is required.">
                             </div>
                             <div class="help-block with-errors"></div>
