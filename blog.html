@@ -19,39 +19,22 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700&display=swap" rel="stylesheet"> -->
 
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" /> <!-- Improved JavaScript Loading -->
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+    <!-- Optimized JavaScript Loading -->
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/dsn-grid.js"></script>
+    <script src="assets/js/fixes.js" defer></script>
+    <script src="assets/js/plugins.js" defer></script>
+    <script src="assets/js/custom.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+
     <script>
-        // Function to add JavaScript with high priority
-        function loadJSWithPriority() {
-            // Remove any existing script
-            var existingScript = document.querySelector('script[src="assets/js/all.min.js"]');
-            if (existingScript) {
-                existingScript.parentNode.removeChild(existingScript);
-            }
-
-            // Create a new script element
-            var script = document.createElement('script');
-            script.src = 'assets/js/all.min.js';
-
-            // Set high priority attributes
-            script.setAttribute('importance', 'high');
-            script.setAttribute('fetchpriority', 'high');
-
-            // Add the script to the head
-            document.head.appendChild(script);
-
-            // Show content when script is loaded
-            script.onload = function () {
-                document.querySelector('.main-root').style.visibility = 'visible';
-            };
-        }
-
-        // Call the function immediately
-        loadJSWithPriority();
-
-        // Also call it when DOM is ready (as a fallback)
+        // Hide content until scripts are loaded
         document.addEventListener('DOMContentLoaded', function () {
-            document.querySelector('.main-root').style.visibility = 'visible';
+            setTimeout(function() {
+                document.querySelector('.main-root').style.visibility = 'visible';
+            }, 100);
         });
     </script>
 
