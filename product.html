@@ -29,13 +29,14 @@
     <script src="assets/js/fixes.js" defer></script>
     <script src="assets/js/plugins.js" defer></script>
     <script src="assets/js/custom.js" defer></script>
+    <script src="assets/js/product-modal.js" defer></script>
     <script src="assets/js/lazy-load.js" defer></script>
     <script src="assets/js/main.js" defer></script>
 
     <script>
         // Hide content until scripts are loaded
         document.addEventListener('DOMContentLoaded', function () {
-            setTimeout(function() {
+            setTimeout(function () {
                 document.querySelector('.main-root').style.visibility = 'visible';
             }, 100);
         });
@@ -46,6 +47,474 @@
 
     <!-- custom styles (optional) -->
     <link href="assets/css/all.min.css" rel="stylesheet" />
+    <style>
+        /**
+ * Modal CSS Styles - Optimized for Performance
+ */
+
+        /* Hidden content for SEO */
+        .hidden-content {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            border: 0 !important;
+        }
+
+        /* Fullscreen Modal Base Styles */
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 99999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            overflow: auto;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Modal Show State */
+        .fullscreen-modal.show {
+            opacity: 1;
+        }
+
+        /* Vertical centering technique */
+        .fullscreen-modal:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -4px; /* Adjusts for spacing */
+        }
+
+        /* Modal Content */
+        .fullscreen-modal .modal-content {
+            display: inline-block;
+            vertical-align: middle;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            /* background-color: #fff; */
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            text-align: right; /* Reset text alignment for RTL content */
+            transform: scale(0.7);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            overflow: hidden;
+            margin: 30px 0;
+            position: relative;
+            top: -20px; /* Start slightly above for a nice entrance */
+        }
+
+        /* Modal Content Show State */
+        .fullscreen-modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+            top: 0;
+        }
+
+        /* Modal Body */
+        .fullscreen-modal .modal-body {
+            padding: 20px;
+            max-height: calc(90vh - 60px);
+            overflow-y: auto;
+            direction: rtl;
+        }
+
+        /* Close Button */
+        .fullscreen-modal .close-modal {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            z-index: 1;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #f0f0f0;
+            border-radius: 50%;
+        }
+
+        .fullscreen-modal .modal-content {
+            position: relative !important;
+            width: 100% !important;
+            height: 100% !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow: hidden !important;
+            margin-right: auto !important;
+            margin-left: auto !important;
+        }
+
+        /* Close Button Styles */
+        .fullscreen-modal .close-modal {
+            position: fixed !important;
+            font-size: 30px !important;
+            color: #fff !important;
+            cursor: pointer !important;
+            z-index: 100000 !important;
+            width: 40px !important;
+            height: 40px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: rgba(255, 255, 255, .1) !important;
+            border-radius: 50% !important;
+            transition: all .3s ease !important;
+            animation: blinkCloseBtn 2.5s infinite !important;
+            border: 2px solid rgba(255, 255, 255, .2) !important;
+            box-shadow: 0 0 10px rgba(255, 255, 255, .1) !important;
+            left: 30px !important;
+            top: 30px !important;
+        }
+
+        @keyframes blinkCloseBtn {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, .5) !important;
+            }
+
+            50% {
+                box-shadow: 0 0 20px 5px rgba(255, 255, 255, .3) !important;
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, .5) !important;
+            }
+        }
+
+        .fullscreen-modal .close-modal:hover {
+            background: rgba(255, 255, 255, .3) !important;
+            transform: rotate(90deg) !important;
+            animation: none !important;
+            border-color: rgba(255, 255, 255, .8) !important;
+        }
+
+        /* Modal Body Styles */
+        .fullscreen-modal .modal-body {
+            padding: 30px !important;
+            margin: 0 !important;
+            flex: 1 !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch !important;
+            position: relative !important;
+            transform: translateY(20px) !important;
+            opacity: 0 !important;
+            transition: all .3s ease !important;
+            overscroll-behavior: contain !important;
+            touch-action: pan-y !important;
+        }
+
+        .fullscreen-modal.show .modal-body {
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+        }
+
+        /* Body State When Modal is Open */
+        body.modal-open {
+            overflow: hidden !important;
+            touch-action: none !important;
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Show Modal Button Wrapper */
+        .show-modal-btn-wrapper {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            margin: 70px auto !important;
+            position: relative !important;
+            width: 100% !important;
+            max-width: 320px !important;
+        }
+
+        /* Button Glow Effect */
+        .btn-glow-wrapper {
+            position: relative !important;
+            z-index: 1 !important;
+        }
+
+        .btn-glow-wrapper:before,
+        .btn-glow-wrapper:after {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: var(--theme-color) !important;
+            border-radius: 50px !important;
+            opacity: .3 !important;
+            filter: blur(15px) !important;
+            animation: pulseGlow 3s infinite alternate !important;
+            z-index: -1 !important;
+        }
+
+        .btn-glow-wrapper:after {
+            animation-delay: 1.5s !important;
+            opacity: .2 !important;
+            filter: blur(20px) !important;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(.85) !important;
+                opacity: .3 !important;
+            }
+
+            100% {
+                transform: scale(1.05) !important;
+                opacity: .7 !important;
+            }
+        }
+
+        /* Show Modal Button */
+        .show-modal-button {
+            background: linear-gradient(135deg, var(--theme-color) 0, #393939 100%) !important;
+            color: #fff !important;
+            border: none !important;
+            padding: 16px 30px !important;
+            border-radius: 50px !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all .4s cubic-bezier(.175, .885, .32, 1.275) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            z-index: 1 !important;
+            letter-spacing: .5px !important;
+            width: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            animation: floatButton 5s ease-in-out infinite, glowButton 3s ease-in-out infinite !important;
+            box-shadow: 0 0 15px rgba(220, 215, 201,0.5) !important;
+            transition: all 0.3s ease-in-out !important;
+        }
+
+        @keyframes floatButton {
+            0% {
+                transform: translateY(0) !important;
+            }
+
+            50% {
+                transform: translateY(-5px) !important;
+            }
+
+            100% {
+                transform: translateY(0) !important;
+            }
+        }
+
+        @keyframes glowButton {
+            0% {
+                box-shadow: 0 0 15px rgba(220, 215, 201,0.5) !important;
+            }
+
+            25% {
+                box-shadow: 0 0 20px rgba(220, 215, 201,0.6) !important;
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(220, 215, 201,0.8) !important;
+            }
+
+            75% {
+                box-shadow: 0 0 20px rgba(220, 215, 201,0.6) !important;
+            }
+
+            100% {
+                box-shadow: 0 0 15px rgba(220, 215, 201,0.1) !important;
+            }
+        }
+
+        .show-modal-button .btn-text {
+            margin-left: 10px !important;
+            position: relative !important;
+            transition: all .3s ease !important;
+        }
+
+        .show-modal-button .btn-icon {
+            width: 30px !important;
+            height: 30px !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all .3s ease !important;
+        }
+
+        .show-modal-button .btn-icon i {
+            font-size: 14px !important;
+            transition: all .3s ease !important;
+            animation: arrowBounce 2s infinite !important;
+        }
+
+        @keyframes arrowBounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0) !important;
+            }
+
+            40% {
+                transform: translateY(-8px) !important;
+            }
+
+            60% {
+                transform: translateY(-4px) !important;
+            }
+        }
+
+        .show-modal-button:before {
+            content: "" !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(135deg, rgba(255, 255, 255, .2) 0, rgba(255, 255, 255, 0) 100%) !important;
+            z-index: -1 !important;
+            transform: translateX(-100%) !important;
+            transition: transform .6s cubic-bezier(.175, .885, .32, 1.275) !important;
+        }
+
+        .show-modal-button:hover {
+            transform: translateY(-2px) scale(1.02) !important;
+            box-shadow: 0 0 30px rgba(220, 215, 201,0.7) !important;
+            animation: none !important; /* Stop animations on hover for better UX */
+        }
+
+        .show-modal-button:hover:before {
+            transform: translateX(0) !important;
+        }
+
+        .show-modal-button:hover .btn-icon {
+            transform: scale(1.1) rotate(360deg) !important;
+        }
+
+        .show-modal-button:hover .btn-text {
+            transform: scale(1.05) !important;
+        }
+
+        .show-modal-button:active {
+            transform: translateY(1px) scale(.98) !important;
+        }
+
+        /* Button Wrapper Decorative Lines */
+        .show-modal-btn-wrapper:before,
+        .show-modal-btn-wrapper:after {
+            content: "" !important;
+            position: absolute !important;
+            width: 80px !important;
+            height: 2px !important;
+            background: linear-gradient(90deg, transparent, var(--theme-color), transparent) !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+        }
+
+        .show-modal-btn-wrapper:before {
+            right: calc(100% + 20px) !important;
+        }
+
+        .show-modal-btn-wrapper:after {
+            left: calc(100% + 20px) !important;
+        }
+
+        /* Scrollbar Styling for Modal */
+        .modal-body::-webkit-scrollbar {
+            width: 5px !important;
+            direction: rtl !important;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            border-radius: 5px !important;
+            background: #424242 !important;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .fullscreen-modal .close-modal {
+                left: 20px !important;
+                top: 20px !important;
+                width: 38px !important;
+                height: 38px !important;
+                font-size: 28px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .show-modal-btn-wrapper {
+                margin: 50px auto !important;
+                max-width: 280px !important;
+            }
+
+            .show-modal-button {
+                padding: 14px 25px !important;
+                font-size: 14px !important;
+            }
+
+            .show-modal-btn-wrapper:before,
+            .show-modal-btn-wrapper:after {
+                width: 40px !important;
+            }
+
+            .show-modal-button .btn-icon {
+                width: 25px !important;
+                height: 25px !important;
+            }
+
+            .fullscreen-modal .close-modal {
+                left: 15px !important;
+                top: 15px !important;
+                width: 35px !important;
+                height: 35px !important;
+                font-size: 24px !important;
+            }
+
+            .fullscreen-modal .modal-body {
+                padding: 0 !important;
+                direction: rtl !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .show-modal-btn-wrapper:before,
+            .show-modal-btn-wrapper:after {
+                display: none !important;
+            }
+
+            .fullscreen-modal .close-modal {
+                left: 10px !important;
+                top: 10px !important;
+                width: 32px !important;
+                height: 32px !important;
+                font-size: 22px !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="hamburger-menu dsn-effect-scroll dsn-ajax" data-dsn-mousemove="true">
@@ -604,16 +1073,6 @@
                         </div>
                     </div>
 
-                    <!-- مودال تمام صفحه -->
-                    <div id="fullscreen-modal" class="fullscreen-modal" dir="rtl">
-                        <div class="modal-content">
-                            <span class="close-modal">&times;</span>
-                            <div class="modal-body">
-                                <!-- محتوا در اینجا به صورت داینامیک لود می‌شود -->
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- دکمه نمایش -->
                     <div class="show-modal-btn-wrapper">
                         <div class="btn-glow-wrapper">
@@ -860,9 +1319,6 @@
                         </div>
                     </div>
                     <!-- end credit -->
-
-                    <!-- اضافه کردن فضای خالی برای جلوگیری از پوشاندن اعتبارات با منوی موبایل -->
-                    <div class="mobile-nav-spacer"></div>
                 </div>
             </footer>
             <!-- end footer -->
@@ -956,6 +1412,16 @@
             <!-- <h3>به نصرتی دکور خوش آمدید</h3> -->
             <!-- <p>برای مشاوره رایگان و دریافت کاتالوگ محصولات با ما در تماس باشید.</p> -->
             <!-- <button class="popup-button">تماس با ما</button> -->
+        </div>
+    </div>
+
+    <!-- مودال تمام صفحه -->
+    <div id="fullscreen-modal" class="fullscreen-modal" dir="rtl">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <!-- محتوا در اینجا به صورت داینامیک لود می‌شود -->
+            </div>
         </div>
     </div>
 </body>
