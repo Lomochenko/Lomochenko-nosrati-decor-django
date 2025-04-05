@@ -564,52 +564,86 @@ function initCursor() {
                         var a = this;
                         o.removeClass("dsn-effect-animate");
 
-                        // بارگذاری محتوای صفحه جدید بدون preloader
-                        this.main_root.load(t + " main.main-root > *", function (i, o, s) {
-                            var r = e(this);
+                        // بارگذاری فقط محتوای اصلی صفحه جدید بدون بارگذاری مجدد CSS و JS
+                        // فقط محتوای داخل main.main-root را بارگذاری می‌کنیم
 
-                            // حذف preloader از محتوای بارگذاری شده
-                            r.find('.preloader').remove();
+                        // استفاده از fetch برای بارگذاری سریع‌تر صفحه
+                        fetch(t)
+                            .then(function(response) {
+                                if (!response.ok) {
+                                    window.location = t; // در صورت خطا، به صفحه مورد نظر منتقل شو
+                                    return;
+                                }
+                                return response.text();
+                            })
+                            .then(function(html) {
+                                if (!html) return;
 
-                            a.hideAnimate();
+                                // استفاده از DOMParser برای پردازش HTML
+                                var parser = new DOMParser();
+                                var doc = parser.parseFromString(html, 'text/html');
 
-                            if ("error" !== o) {
-                                a.ajaxTitle(t);
+                                // استخراج محتوای اصلی
+                                var newContent = doc.querySelector('main.main-root');
+                                if (!newContent) {
+                                    window.location = t; // اگر محتوای اصلی پیدا نشد، به صفحه مورد نظر منتقل شو
+                                    return;
+                                }
+
+                                // حذف preloader از محتوای جدید
+                                var preloader = newContent.querySelector('.preloader');
+                                if (preloader) {
+                                    preloader.parentNode.removeChild(preloader);
+                                }
+
+                                // به‌روزرسانی عنوان صفحه
+                                var title = doc.querySelector('title');
+                                if (title) {
+                                    document.title = title.textContent;
+                                }
+
+                                // به‌روزرسانی تاریخچه مرورگر
                                 history.pushState(null, null, t);
 
-                                setTimeout(function () {
-                                    // بارگذاری تصاویر قبل از نمایش محتوا
-                                    var images = r.find('img');
-                                    var imagesLoaded = 0;
-                                    var totalImages = images.length;
+                                // مخفی کردن انیمیشن‌ها
+                                a.hideAnimate();
 
-                                    // اگر تصویری وجود ندارد، مستقیماً محتوا را نمایش بده
-                                    if (totalImages === 0) {
-                                        a.animateAjaxEnd();
-                                        void 0 !== n && n(r, i, s);
-                                        d = !0;
-                                        return;
-                                    }
+                                // جایگزینی محتوای اصلی
+                                a.main_root.html(newContent.innerHTML);
+                                var r = a.main_root;
 
-                                    // بارگذاری تصاویر
-                                    images.each(function() {
-                                        var img = new Image();
-                                        img.onload = img.onerror = function() {
-                                            imagesLoaded++;
-                                            if (imagesLoaded >= totalImages) {
-                                                // همه تصاویر بارگذاری شده‌اند
-                                                a.animateAjaxEnd();
-                                                void 0 !== n && n(r, i, s);
-                                                d = !0;
-                                            }
-                                        };
-                                        img.src = this.src;
-                                    });
-                                }, 200);
-                            } else {
-                                window.location = t;
-                            }
-                        });
+                                // بارگذاری تصاویر قبل از نمایش محتوا
+                                var images = r.find('img');
+                                var imagesLoaded = 0;
+                                var totalImages = images.length;
+
+                                // اگر تصویری وجود ندارد، مستقیماً محتوا را نمایش بده
+                                if (totalImages === 0) {
+                                    a.animateAjaxEnd();
+                                    void 0 !== n && n(r, null, null);
+                                    d = !0;
+                                    return;
+                                }
+
+                                // بارگذاری تصاویر
+                                images.each(function() {
+                                    var img = new Image();
+                                    img.onload = img.onerror = function() {
+                                        imagesLoaded++;
+                                        if (imagesLoaded >= totalImages) {
+                                            // همه تصاویر بارگذاری شده‌اند
+                                            a.animateAjaxEnd();
+                                            void 0 !== n && n(r, null, null);
+                                            d = !0;
+                                        }
+                                    };
+                                    img.src = this.src;
+                                });
+                            })
+                            .catch(function(error) {
+                                console.error('Error loading page:', error);
+                                window.location = t; // در صورت خطا، به صفحه مورد نظر منتقل شو
+                            });
                     },
                     animateAjaxEnd: function () {
                         var n = this;
@@ -637,13 +671,8 @@ function initCursor() {
                         }))
                     },
                     ajaxTitle: function (t) {
-                        e("title").load(t + " title", "", function (t) {
-                            document.title = e(this).text()
-                        });
-                        var n = e("#wpadminbar");
-                        n.length > 0 && n.load(t + " #wpadminbar", "", function (t) {
-                            n.html(e(this).html())
-                        })
+                        // عنوان صفحه در تابع loader به‌روزرسانی می‌شود
+                        // این تابع برای سازگاری با کد قبلی حفظ شده است
                     },
                     ajaxLoaderElemnt: function (e) {
                         e ? o.addClass("dsn-ajax-effect") : o.removeClass("dsn-ajax-effect")
@@ -1388,11 +1417,52 @@ function initCursor() {
             }
         }();
     r.start(), l.allInt(), t(), i.on("popstate", function (n) {
-        e("main.main-root").load(document.location + " main.main-root > *", function () {
-            // حذف preloader از محتوای بارگذاری شده
-            e(this).find('.preloader').remove();
-            t(true), a().unlocked()
-        })
+        // استفاده از fetch برای بارگذاری سریع‌تر صفحه بدون بارگذاری مجدد CSS و JS
+        fetch(document.location)
+            .then(function(response) {
+                if (!response.ok) {
+                    window.location.reload(); // در صورت خطا، صفحه را مجدداً بارگذاری کن
+                    return;
+                }
+                return response.text();
+            })
+            .then(function(html) {
+                if (!html) return;
+
+                // استفاده از DOMParser برای پردازش HTML
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+
+                // استخراج محتوای اصلی
+                var newContent = doc.querySelector('main.main-root');
+                if (!newContent) {
+                    window.location.reload(); // اگر محتوای اصلی پیدا نشد، صفحه را مجدداً بارگذاری کن
+                    return;
+                }
+
+                // حذف preloader از محتوای جدید
+                var preloader = newContent.querySelector('.preloader');
+                if (preloader) {
+                    preloader.parentNode.removeChild(preloader);
+                }
+
+                // به‌روزرسانی عنوان صفحه
+                var title = doc.querySelector('title');
+                if (title) {
+                    document.title = title.textContent;
+                }
+
+                // جایگزینی محتوای اصلی
+                e("main.main-root").html(newContent.innerHTML);
+
+                // اجرای توابع مورد نیاز
+                t(true);
+                a().unlocked();
+            })
+            .catch(function(error) {
+                console.error('Error loading page:', error);
+                window.location.reload(); // در صورت خطا، صفحه را مجدداً بارگذاری کن
+            });
     }), contactValidator(), n()
 }(jQuery);
 
