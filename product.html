@@ -95,7 +95,8 @@
             display: inline-block;
             height: 100%;
             vertical-align: middle;
-            margin-right: -4px; /* Adjusts for spacing */
+            margin-right: -4px;
+            /* Adjusts for spacing */
         }
 
         /* Modal Content */
@@ -107,15 +108,17 @@
             max-height: 90vh;
             /* background-color: #fff; */
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            text-align: right; /* Reset text alignment for RTL content */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            text-align: right;
+            /* Reset text alignment for RTL content */
             transform: scale(0.7);
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
             overflow: hidden;
             margin: 30px 0;
             position: relative;
-            top: -20px; /* Start slightly above for a nice entrance */
+            top: -20px;
+            /* Start slightly above for a nice entrance */
         }
 
         /* Modal Content Show State */
@@ -306,7 +309,7 @@
             align-items: center !important;
             justify-content: space-between !important;
             animation: floatButton 5s ease-in-out infinite, glowButton 3s ease-in-out infinite !important;
-            box-shadow: 0 0 15px rgba(220, 215, 201,0.5) !important;
+            box-shadow: 0 0 15px rgba(220, 215, 201, 0.5) !important;
             transition: all 0.3s ease-in-out !important;
         }
 
@@ -326,23 +329,23 @@
 
         @keyframes glowButton {
             0% {
-                box-shadow: 0 0 15px rgba(220, 215, 201,0.5) !important;
+                box-shadow: 0 0 15px rgba(220, 215, 201, 0.5) !important;
             }
 
             25% {
-                box-shadow: 0 0 20px rgba(220, 215, 201,0.6) !important;
+                box-shadow: 0 0 20px rgba(220, 215, 201, 0.6) !important;
             }
 
             50% {
-                box-shadow: 0 0 30px rgba(220, 215, 201,0.8) !important;
+                box-shadow: 0 0 30px rgba(220, 215, 201, 0.8) !important;
             }
 
             75% {
-                box-shadow: 0 0 20px rgba(220, 215, 201,0.6) !important;
+                box-shadow: 0 0 20px rgba(220, 215, 201, 0.6) !important;
             }
 
             100% {
-                box-shadow: 0 0 15px rgba(220, 215, 201,0.1) !important;
+                box-shadow: 0 0 15px rgba(220, 215, 201, 0.1) !important;
             }
         }
 
@@ -402,8 +405,9 @@
 
         .show-modal-button:hover {
             transform: translateY(-2px) scale(1.02) !important;
-            box-shadow: 0 0 30px rgba(220, 215, 201,0.7) !important;
-            animation: none !important; /* Stop animations on hover for better UX */
+            box-shadow: 0 0 30px rgba(220, 215, 201, 0.7) !important;
+            animation: none !important;
+            /* Stop animations on hover for better UX */
         }
 
         .show-modal-button:hover:before {
@@ -1337,10 +1341,12 @@
     </main>
 
     <!-- Wait Loader -->
-    <div class="wait-loader">
-        <div class="loader-inner">
-            <div class="loader-circle">
-                <div class="loader-layer"></div>
+    <div class="wait-loader-div">
+        <div class="wait-loader">
+            <div class="loader-inner">
+                <div class="loader-circle">
+                    <div class="loader-layer"></div>
+                </div>
             </div>
         </div>
     </div>

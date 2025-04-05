@@ -1931,15 +1931,26 @@ body>* {
     background: -o-linear-gradient(rgba(15, 15, 15, 0), #0f0f0f);
     background: linear-gradient(rgba(15, 15, 15, 0), #0f0f0f)
 }
-
+.wait-loader-div{
+    
+}
 .wait-loader {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 24px;
-    width: 100%;
-    z-index: 999;
-    display: none
+    position: fixed;
+    top: 50% !important; /* مرکز عمودی */
+    left: 50% !important; /* مرکز افقی */
+    bottom: auto !important; /* حذف موقعیت پایین */
+    right: auto !important; /* حذف موقعیت راست */
+    transform: translate(-50%, -50%) !important; /* تنظیم دقیق مرکز */
+    width: 80px !important; /* افزایش عرض */
+    height: 80px !important; /* افزایش ارتفاع */
+    z-index: 999999;
+    /* background-color: rgba(0, 0, 0, 0.521) !important; */
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 100% !important;
+    padding: 15px !important;
+    display: none;
 }
 
 .dsn-ajax-effect .wait-loader {
@@ -1948,9 +1959,9 @@ body>* {
 
 .wait-loader .loader-inner {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    right: 35px;
+    width: 100% !important;
+    height: 100% !important;
+    right: 0;
     bottom: 0;
     -webkit-transform: scale(.9);
     -ms-transform: scale(.9);

@@ -28,53 +28,6 @@
 
         // Create SEO content if it doesn't exist
         let seoContent = document.querySelector('.seo-content');
-        if (!seoContent) {
-            console.log('Creating SEO content element');
-            seoContent = document.createElement('div');
-            seoContent.className = 'seo-content hidden-content';
-            seoContent.innerHTML = `
-                <h2>جزئیات محصول نصرتی دکور</h2>
-                <p>این محصول با کیفیت ترین محصول در دسته بندی خود می باشد که با استفاده از بهترین متریال ها و توسط ماهرترین استادکاران تولید شده است.</p>
-
-                <div class="product-details">
-                    <h3>ویژگی های محصول:</h3>
-                    <ul>
-                        <li>طراحی منحصر به فرد و مدرن</li>
-                        <li>استفاده از مواد اولیه درجه یک</li>
-                        <li>دوام و ماندگاری بالا</li>
-                        <li>قابلیت سفارشی سازی بر اساس نیاز مشتری</li>
-                        <li>گارانتی ۵ ساله محصول</li>
-                    </ul>
-
-                    <h3>مشخصات فنی:</h3>
-                    <table>
-                        <tr>
-                            <th>ابعاد</th>
-                            <td>۱۲۰×۸۰×۴۵ سانتی متر</td>
-                        </tr>
-                        <tr>
-                            <th>وزن</th>
-                            <td>۳۵ کیلوگرم</td>
-                        </tr>
-                        <tr>
-                            <th>جنس</th>
-                            <td>چوب راش، MDF روکش دار</td>
-                        </tr>
-                        <tr>
-                            <th>رنگ های موجود</th>
-                            <td>طبیعی، گردویی، مشکی، سفید</td>
-                        </tr>
-                    </table>
-
-                    <h3>نحوه سفارش:</h3>
-                    <p>برای سفارش این محصول می توانید از طریق شماره تماس ۰۲۱-۱۲۳۴۵۶۷۸ با کارشناسان ما در ارتباط باشید یا فرم سفارش آنلاین را در وبسایت تکمیل نمایید.</p>
-
-                    <h3>زمان تحویل:</h3>
-                    <p>زمان تحویل این محصول بین ۷ تا ۱۰ روز کاری می باشد.</p>
-                </div>
-            `;
-            document.body.appendChild(seoContent);
-        }
 
         // State variables
         let isModalOpen = false;

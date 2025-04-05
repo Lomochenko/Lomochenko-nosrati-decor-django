@@ -525,53 +525,15 @@ function initCursor() {
                         }), a.css(dsnGrid.getBoundingClientRect(n[0])), e.append(a), a
                     },
                     ajaxNormal: function (t) {
-                        var n = this,
-                            s = e('<div class="modern-ajax-loader"></div>');
+                        var n = this;
 
-                        // افزودن لودر چرخشی مدرن
-                        var loaderSvg = e('<div class="loader-circle"><svg viewBox="25 25 50 50"><circle cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>');
-
-                        s.css({
-                            position: "fixed",
-                            left: 0,
-                            top: 0,
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "rgba(18, 18, 18, 0.9)",
-                            backdropFilter: "blur(10px)",
-                            zIndex: 900199,
-                            opacity: 0,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center"
-                        });
-
-                        s.append(loaderSvg);
-                        o.append(s);
-
-                        // افزودن استایل برای لودر
-                        var style = e('<style>.modern-ajax-loader .loader-circle {width: 60px; height: 60px; position: relative;}'
-                            + '.modern-ajax-loader .loader-circle svg {animation: loader-rotate 1.5s linear infinite; width: 100%; height: 100%;}'
-                            + '.modern-ajax-loader .loader-circle circle {stroke: #fff; stroke-dasharray: 150, 200; stroke-dashoffset: -10; stroke-linecap: round; animation: loader-dash 1.2s ease-in-out infinite;}'
-                            + '@keyframes loader-rotate {100% {transform: rotate(360deg);}}'
-                            + '@keyframes loader-dash {0% {stroke-dasharray: 1, 200; stroke-dashoffset: 0;}'
-                            + '50% {stroke-dasharray: 89, 200; stroke-dashoffset: -35px;}'
-                            + '100% {stroke-dasharray: 89, 200; stroke-dashoffset: -125px;}}'
-                            + '</style>');
-                        o.append(style);
-
-                        // شروع پیش‌بارگذاری صفحه جدید حتی قبل از نمایش کامل لودر
+                        // شروع پیش‌بارگذاری صفحه جدید بدون نمایش modern-ajax-loader
+                        // فقط از wait-loader استفاده می‌شود که در جای دیگر مدیریت می‌شود
                         setTimeout(function () {
                             n.loader(t, function () {
                                 dsnGrid.scrollTop(0, 1), a().unlocked()
                             });
                         }, 50);
-
-                        // انیمیشن ظاهر شدن لودر - سریع‌تر شده
-                        TweenMax.to(s, 0.4, {
-                            opacity: 1,
-                            ease: Power2.easeInOut
-                        });
                     },
                     hideAnimate: function () {
                         TweenMax.set(e(s.animateTextAjax), {
@@ -597,19 +559,11 @@ function initCursor() {
                     animateAjaxEnd: function () {
                         var n = this;
                         n.main_root.css("transform", "");
-                        let a = e(".modern-ajax-loader");
 
-                        // انیمیشن خروج لودر - سریع‌تر شده
-                        TweenMax.to(a, 0.4, {
-                            opacity: 0,
-                            ease: Power2.easeInOut,
-                            onComplete: function () {
-                                a.remove();
-                                e("style:contains('.modern-ajax-loader')").remove();
-                                n.ajaxLoaderElemnt();
-                                n.showAnimate();
-                            }
-                        });
+                        // حذف کدهای مربوط به modern-ajax-loader
+                        // فقط از wait-loader استفاده می‌شود
+                        n.ajaxLoaderElemnt();
+                        n.showAnimate();
 
                         t(!0);
                     },
