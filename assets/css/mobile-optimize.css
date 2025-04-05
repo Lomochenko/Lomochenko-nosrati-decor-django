@@ -1,0 +1,76 @@
+/**
+ * Mobile Optimization CSS
+ * Improves performance on mobile devices without changing appearance
+ */
+
+/* Optimize animations on mobile */
+@media (max-width: 767px) {
+    /* Reduce animation complexity */
+    .dsn-animate-active {
+        transition-duration: 0.3s !important;
+    }
+    
+    /* Optimize transitions */
+    * {
+        transition-duration: 0.3s !important;
+        animation-duration: 0.3s !important;
+    }
+    
+    /* Disable parallax effects on mobile */
+    [data-dsn="parallax"],
+    [data-dsn-grid="move-up"],
+    [data-dsn-grid="move-section"] {
+        transform: none !important;
+        transition: none !important;
+        will-change: auto !important;
+    }
+    
+    /* Optimize background images */
+    .cover-bg {
+        background-attachment: scroll !important;
+    }
+    
+    /* Simplify hover effects on mobile */
+    .cursor {
+        display: none !important;
+    }
+    
+    /* Optimize fixed elements */
+    .site-header {
+        will-change: auto !important;
+    }
+    
+    /* Optimize transforms */
+    .transform-3d {
+        transform: none !important;
+        will-change: auto !important;
+    }
+    
+    /* Optimize slider animations */
+    .swiper-container {
+        will-change: auto !important;
+    }
+    
+    /* Force hardware acceleration for critical animations only */
+    .critical-animation {
+        will-change: transform;
+        transform: translateZ(0);
+    }
+    
+    /* Optimize image rendering */
+    img {
+        image-rendering: auto;
+    }
+}
+
+/* Prevent layout shifts */
+.main-root {
+    visibility: visible !important;
+}
+
+/* Ensure scrolling works */
+body {
+    overflow: auto !important;
+    position: static !important;
+    height: auto !important;
+}

@@ -21,12 +21,16 @@
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
 
+    <!-- Performance optimization -->
+    <script src="assets/js/defer-scripts.js"></script>
+
     <!-- Optimized JavaScript Loading -->
     <script src="assets/js/jquery-3.1.1.min.js"></script>
     <script src="assets/js/dsn-grid.js"></script>
     <script src="assets/js/fixes.js" defer></script>
     <script src="assets/js/plugins.js" defer></script>
     <script src="assets/js/custom.js" defer></script>
+    <script src="assets/js/lazy-load.js" defer></script>
     <script src="assets/js/main.js" defer></script>
 
     <script>
@@ -37,6 +41,9 @@
             }, 100);
         });
     </script>
+
+    <!-- Mobile optimization -->
+    <link href="assets/css/mobile-optimize.css" rel="stylesheet" />
 
     <!-- custom styles (optional) -->
     <link href="assets/css/all.min.css" rel="stylesheet" />
