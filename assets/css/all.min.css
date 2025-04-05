@@ -2205,11 +2205,16 @@ body>* {
     height: 100%;
     z-index: 99999;
     background: #090909;
-    transition: transform .5s cubic-bezier(.645, .045, .355, 1)
+    /* Change from transform transition to opacity transition */
+    transition: opacity 0.8s ease;
+    opacity: 1;
 }
 
 .preloader-hide {
-    transform: translateY(-100%)
+    /* Change from transform to opacity */
+    opacity: 0;
+    /* Add pointer-events none to prevent interaction while fading */
+    pointer-events: none;
 }
 
 .preloader-block {
