@@ -4,15 +4,12 @@
  */
 
 // Fix for luxuryPreloader is not defined
+// We don't need luxuryPreloader anymore as we're using the main preloader
 if (typeof luxuryPreloader === 'undefined') {
-    // Create a dummy luxuryPreloader object with the same interface
     window.luxuryPreloader = {
         init: function() {
-            console.log('Using simplified preloader instead of luxury preloader');
-            // If simplePreloader exists, use it instead
-            if (typeof simplePreloader !== 'undefined') {
-                simplePreloader.init();
-            }
+            // Do nothing - main preloader is used instead
+            console.log('Using main preloader instead of luxury preloader');
         }
     };
 }
@@ -24,30 +21,30 @@ if (typeof setActiveNavItem === 'undefined') {
         // Find mobile nav
         var $mobileNav = $('.nav-mobile-app');
         if ($mobileNav.length <= 0) return;
-        
+
         // Always show menu
         $mobileNav.addClass('nav-visible').removeClass('nav-hidden');
-        
+
         // Get current URL
         var currentPath = window.location.pathname;
         var currentPage = currentPath.split('/').pop() || 'home.html';
-        
+
         // If URL is empty, we're probably on home page
         if (currentPage === '') {
             currentPage = 'home.html';
         }
-        
+
         // For consulting page check
         var isConsultingPage = window.location.hash === '#consulting';
-        
+
         // Remove all active classes first
         $mobileNav.find('.nav-item').removeClass('active');
-        
+
         // Find the matching nav item and add active class
         $mobileNav.find('.nav-item').each(function() {
             var $item = $(this);
             var href = $item.attr('href');
-            
+
             // Detect active item based on URL
             if (
                 href === currentPage ||
@@ -58,7 +55,7 @@ if (typeof setActiveNavItem === 'undefined') {
                 $item.addClass('active');
             }
         });
-        
+
         // Add click handler for nav items
         $mobileNav.find('.nav-item').off('click.nav').on('click.nav', function() {
             $mobileNav.find('.nav-item').removeClass('active');
@@ -73,7 +70,7 @@ $(document).ready(function() {
     if (typeof setActiveNavItem === 'function') {
         setActiveNavItem();
     }
-    
+
     // Fix for font loading warning
     // Preload critical fonts
     function preloadFonts() {
@@ -81,7 +78,7 @@ $(document).ready(function() {
             'assets/fonts/fa-solid-900.woff2',
             'assets/fonts/fa-brands-400.woff2'
         ];
-        
+
         fontUrls.forEach(url => {
             const link = document.createElement('link');
             link.rel = 'preload';
@@ -92,9 +89,9 @@ $(document).ready(function() {
             document.head.appendChild(link);
         });
     }
-    
+
     preloadFonts();
-    
+
     // Add mobile-web-app-capable meta tag
     if (!document.querySelector('meta[name="mobile-web-app-capable"]')) {
         const meta = document.createElement('meta');

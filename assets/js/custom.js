@@ -297,6 +297,19 @@ function initCursor() {
     "use strict";
 
     function t(n) {
+        // اگر n برابر با true باشد، یعنی این تابع از طریق بارگذاری صفحه‌های داخلی فراخوانی شده است
+        // در این صورت، preloader اصلی را مخفی می‌کنیم
+        if (n === true) {
+            // مخفی کردن preloader اصلی در بارگذاری صفحه‌های داخلی
+            var preloader = e(".preloader");
+            if (preloader.length > 0) {
+                preloader.addClass("hidden");
+                setTimeout(function() {
+                    preloader.remove();
+                }, 100);
+            }
+        }
+
         data_overlay(),
             function () {
                 if (e('[data-dsn-temp="light"]').length > 0) {
@@ -549,12 +562,54 @@ function initCursor() {
                     },
                     loader: function (t, n) {
                         var a = this;
-                        o.removeClass("dsn-effect-animate"), this.main_root.load(t + " main.main-root > *", function (i, o, s) {
+                        o.removeClass("dsn-effect-animate");
+
+                        // بارگذاری محتوای صفحه جدید بدون preloader
+                        this.main_root.load(t + " main.main-root > *", function (i, o, s) {
                             var r = e(this);
-                            a.hideAnimate(), "error" !== o ? (a.ajaxTitle(t), history.pushState(null, null, t), setTimeout(function () {
-                                a.animateAjaxEnd(), void 0 !== n && n(r, i, s), d = !0
-                            }, 200)) : window.location = t
-                        })
+
+                            // حذف preloader از محتوای بارگذاری شده
+                            r.find('.preloader').remove();
+
+                            a.hideAnimate();
+
+                            if ("error" !== o) {
+                                a.ajaxTitle(t);
+                                history.pushState(null, null, t);
+
+                                setTimeout(function () {
+                                    // بارگذاری تصاویر قبل از نمایش محتوا
+                                    var images = r.find('img');
+                                    var imagesLoaded = 0;
+                                    var totalImages = images.length;
+
+                                    // اگر تصویری وجود ندارد، مستقیماً محتوا را نمایش بده
+                                    if (totalImages === 0) {
+                                        a.animateAjaxEnd();
+                                        void 0 !== n && n(r, i, s);
+                                        d = !0;
+                                        return;
+                                    }
+
+                                    // بارگذاری تصاویر
+                                    images.each(function() {
+                                        var img = new Image();
+                                        img.onload = img.onerror = function() {
+                                            imagesLoaded++;
+                                            if (imagesLoaded >= totalImages) {
+                                                // همه تصاویر بارگذاری شده‌اند
+                                                a.animateAjaxEnd();
+                                                void 0 !== n && n(r, i, s);
+                                                d = !0;
+                                            }
+                                        };
+                                        img.src = this.src;
+                                    });
+                                }, 200);
+                            } else {
+                                window.location = t;
+                            }
+                        });
                     },
                     animateAjaxEnd: function () {
                         var n = this;
@@ -1015,7 +1070,7 @@ function initCursor() {
         };
     (navigator.userAgent.match(/Edge/i) || navigator.userAgent.match(/MSIE 10/i) || navigator.userAgent.match(/MSIE 9/i)) && e(".cursor").css("display", "none"),
 
-        // Optimized preloader implementation
+        // Main preloader implementation
         function () {
             var t = e(".preloader"),
                 n = t.find(".preloader-block"),
@@ -1060,24 +1115,12 @@ function initCursor() {
                             y: "-100%",
                             delay: .7
                         });
-                        // In your preloader's onComplete function, replace:
-                        TweenMax.to(d, 1, {
-                            y: "100%",
-                            delay: .7,
-                            onComplete: function () {
-                                t.addClass("hidden");
-                            }
-                        });
 
-                        // With this:
+                        // Fade out animation for preloader
                         TweenMax.to(t, 0.8, {
                             opacity: 0,
                             onComplete: function () {
                                 t.addClass("hidden");
-                                // Optional: remove from DOM after fade completes
-                                setTimeout(function () {
-                                    t.remove();
-                                }, 100);
                             }
                         });
                     }
@@ -1346,7 +1389,9 @@ function initCursor() {
         }();
     r.start(), l.allInt(), t(), i.on("popstate", function (n) {
         e("main.main-root").load(document.location + " main.main-root > *", function () {
-            t(!0), a().unlocked()
+            // حذف preloader از محتوای بارگذاری شده
+            e(this).find('.preloader').remove();
+            t(true), a().unlocked()
         })
     }), contactValidator(), n()
 }(jQuery);

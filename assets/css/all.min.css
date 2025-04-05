@@ -1991,9 +1991,9 @@ body>* {
 .wait-loader .loader-inner .loader-circle .loader-layer,
 .wait-loader .loader-inner .loader-layer .loader-layer {
     border-radius: 50%;
-    border: 2px solid #dcd7c9;
-    border-right: 2px solid rgba(255, 255, 255, .2);
-    border-left: 2px solid rgba(255, 255, 255, .2)
+    border: 2px solid #dcd7c9 !important;
+    border-right: 2px solid rgba(255, 255, 255, .2) !important;
+    border-left: 2px solid rgba(255, 255, 255, .2) !important;
 }
 
 .dsn-ajax-effect .wait-loader .loader-inner .loader-circle {
