@@ -47,6 +47,18 @@
 
     <!-- custom styles (optional) -->
     <link href="assets/css/all.min.css" rel="stylesheet" />
+    
+    <!-- Preloader fix -->
+    <link href="assets/css/preloader-fix.css" rel="stylesheet" />
+
+    <script>
+        // Add class to body for internal page loading
+        if (performance.navigation.type === 1 || document.referrer.includes(window.location.hostname)) {
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.classList.add('internal-page-loaded');
+            });
+        }
+    </script>
 </head>
 
 <body class="hamburger-menu dsn-effect-scroll dsn-ajax" data-dsn-mousemove="true">

@@ -296,18 +296,31 @@ function initCursor() {
 ! function (e) {
     "use strict";
 
+    // تابع جدید برای مخفی کردن preloader اصلی
+    function removeMainPreloader() {
+        // اضافه کردن کلاس به body برای مخفی کردن preloader
+        e('body').addClass('internal-page-loaded');
+
+        // مخفی کردن preloader اصلی
+        var preloader = e(".preloader");
+        if (preloader.length > 0) {
+            preloader.addClass("hidden");
+            // مخفی کردن با CSS
+            preloader.css({
+                'display': 'none',
+                'visibility': 'hidden',
+                'opacity': '0',
+                'z-index': '-9999'
+            });
+        }
+    }
+
     function t(n) {
         // اگر n برابر با true باشد، یعنی این تابع از طریق بارگذاری صفحه‌های داخلی فراخوانی شده است
         // در این صورت، preloader اصلی را مخفی می‌کنیم
         if (n === true) {
             // مخفی کردن preloader اصلی در بارگذاری صفحه‌های داخلی
-            var preloader = e(".preloader");
-            if (preloader.length > 0) {
-                preloader.addClass("hidden");
-                setTimeout(function() {
-                    preloader.remove();
-                }, 100);
-            }
+            removeMainPreloader();
         }
 
         data_overlay(),
@@ -612,13 +625,25 @@ function initCursor() {
                                 a.main_root.html(newContent.innerHTML);
                                 var r = a.main_root;
 
+                                // غیرفعال کردن اسکرول تا زمان بارگذاری کامل
+                                e('body').css('overflow', 'hidden');
+
+                                // مخفی کردن preloader اصلی برای جلوگیری از نمایش آن
+                                removeMainPreloader();
+
                                 // بارگذاری تصاویر قبل از نمایش محتوا
                                 var images = r.find('img');
                                 var imagesLoaded = 0;
                                 var totalImages = images.length;
+                                var minImagesToLoad = Math.min(3, totalImages); // حداقل 3 تصویر یا کل تصاویر اگر کمتر از 3 تا باشند
+
+                                // حذف preloader اصلی از DOM برای جلوگیری از نمایش آن
+                                e('.preloader').remove();
 
                                 // اگر تصویری وجود ندارد، مستقیماً محتوا را نمایش بده
                                 if (totalImages === 0) {
+                                    // فعال کردن مجدد اسکرول
+                                    e('body').css('overflow', '');
                                     a.animateAjaxEnd();
                                     void 0 !== n && n(r, null, null);
                                     d = !0;
@@ -630,11 +655,17 @@ function initCursor() {
                                     var img = new Image();
                                     img.onload = img.onerror = function() {
                                         imagesLoaded++;
-                                        if (imagesLoaded >= totalImages) {
-                                            // همه تصاویر بارگذاری شده‌اند
+
+                                        // اگر حداقل 3 تصویر یا همه تصاویر بارگذاری شده‌اند
+                                        if (imagesLoaded >= minImagesToLoad) {
+                                            // فعال کردن مجدد اسکرول
+                                            e('body').css('overflow', '');
                                             a.animateAjaxEnd();
                                             void 0 !== n && n(r, null, null);
                                             d = !0;
+
+                                            // ادامه بارگذاری بقیه تصاویر در پس‌زمینه
+                                            // این بخش برای اطمینان از بارگذاری همه تصاویر است
                                         }
                                     };
                                     img.src = this.src;
@@ -675,7 +706,13 @@ function initCursor() {
                         // این تابع برای سازگاری با کد قبلی حفظ شده است
                     },
                     ajaxLoaderElemnt: function (e) {
-                        e ? o.addClass("dsn-ajax-effect") : o.removeClass("dsn-ajax-effect")
+                        if (e) {
+                            o.addClass("dsn-ajax-effect");
+                            // مخفی کردن preloader اصلی برای جلوگیری از نمایش آن
+                            removeMainPreloader();
+                        } else {
+                            o.removeClass("dsn-ajax-effect");
+                        }
                     }
                 }
             }(n).ajaxLoad(),
@@ -1099,7 +1136,7 @@ function initCursor() {
         };
     (navigator.userAgent.match(/Edge/i) || navigator.userAgent.match(/MSIE 10/i) || navigator.userAgent.match(/MSIE 9/i)) && e(".cursor").css("display", "none"),
 
-        // Main preloader implementation
+        // Main preloader implementation with longer display time
         function () {
             var t = e(".preloader"),
                 n = t.find(".preloader-block"),
@@ -1110,50 +1147,71 @@ function initCursor() {
                 l = r.find(".preloader-progress"),
                 d = t.find(".preloader-after"),
                 c = t.find(".preloader-before"),
-                u = dsnGrid.pageLoad(0, 100, 300, function (e) {
+                // Slower progress for better visibility (500ms instead of 300ms)
+                u = dsnGrid.pageLoad(0, 100, 500, function (e) {
                     a.text(e);
                     l.css("width", e + "%");
                 });
 
-            i.on("load", function () {
-                clearInterval(u);
-                TweenMax.fromTo(l, .5, {
-                    width: "95%"
-                }, {
-                    width: "100%",
-                    onUpdate: function () {
-                        var e = l.width() / l.parent().width() * 100;
-                        a.text(parseInt(e, 10));
-                    },
-                    onComplete: function () {
-                        TweenMax.to(r, .5, {
-                            left: "100%"
-                        });
-                        TweenMax.to(o, 1, {
-                            autoAlpha: 0,
-                            y: -100
-                        });
-                        TweenMax.to(s, 1, {
-                            autoAlpha: 0,
-                            y: 100
-                        });
-                        TweenMax.to(a, 1, {
-                            autoAlpha: 0
-                        });
-                        TweenMax.to(c, 1, {
-                            y: "-100%",
-                            delay: .7
-                        });
+            // Check if this is the first entrance to the site
+            var isFirstEntrance = true;
+            if (performance.navigation.type === 1 || document.referrer.includes(window.location.hostname)) {
+                isFirstEntrance = false;
+            }
 
-                        // Fade out animation for preloader
-                        TweenMax.to(t, 0.8, {
-                            opacity: 0,
-                            onComplete: function () {
-                                t.addClass("hidden");
-                            }
-                        });
-                    }
-                });
+            // If it's not the first entrance, hide preloader immediately
+            if (!isFirstEntrance) {
+                t.addClass("hidden");
+                return;
+            }
+
+            // For first entrance, show preloader with longer animation
+            i.on("load", function () {
+                // Add a minimum display time for preloader (2 seconds)
+                setTimeout(function() {
+                    clearInterval(u);
+                    // Slower animation (1s instead of 0.5s)
+                    TweenMax.fromTo(l, 1, {
+                        width: "95%"
+                    }, {
+                        width: "100%",
+                        onUpdate: function () {
+                            var e = l.width() / l.parent().width() * 100;
+                            a.text(parseInt(e, 10));
+                        },
+                        onComplete: function () {
+                            // Slower animations for better visibility
+                            TweenMax.to(r, 1, {
+                                left: "100%"
+                            });
+                            TweenMax.to(o, 1.5, {
+                                autoAlpha: 0,
+                                y: -100
+                            });
+                            TweenMax.to(s, 1.5, {
+                                autoAlpha: 0,
+                                y: 100
+                            });
+                            TweenMax.to(a, 1.5, {
+                                autoAlpha: 0
+                            });
+                            TweenMax.to(c, 1.5, {
+                                y: "-100%",
+                                delay: 1
+                            });
+
+                            // Smoother and shorter fade out animation for preloader
+                            TweenMax.to(t, 0.8, {
+                                opacity: 0,
+                                delay: 0.2, // Shorter delay before hiding
+                                ease: Power2.easeInOut, // Smoother easing function
+                                onComplete: function () {
+                                    t.addClass("hidden");
+                                }
+                            });
+                        }
+                    });
+                }, 2000); // Minimum 2 seconds display time
             });
         }(),
 
@@ -1440,6 +1498,9 @@ function initCursor() {
                     return;
                 }
 
+                // مخفی کردن preloader اصلی برای جلوگیری از نمایش آن
+                removeMainPreloader();
+
                 // حذف preloader از محتوای جدید
                 var preloader = newContent.querySelector('.preloader');
                 if (preloader) {
@@ -1452,12 +1513,49 @@ function initCursor() {
                     document.title = title.textContent;
                 }
 
+                // غیرفعال کردن اسکرول تا زمان بارگذاری کامل
+                e('body').css('overflow', 'hidden');
+
                 // جایگزینی محتوای اصلی
                 e("main.main-root").html(newContent.innerHTML);
+                var mainRoot = e("main.main-root");
 
-                // اجرای توابع مورد نیاز
-                t(true);
-                a().unlocked();
+                // بارگذاری تصاویر قبل از نمایش محتوا
+                var images = mainRoot.find('img');
+                var imagesLoaded = 0;
+                var totalImages = images.length;
+                var minImagesToLoad = Math.min(3, totalImages); // حداقل 3 تصویر یا کل تصاویر اگر کمتر از 3 تا باشند
+
+                // اگر تصویری وجود ندارد، مستقیماً محتوا را نمایش بده
+                if (totalImages === 0) {
+                    // فعال کردن مجدد اسکرول
+                    e('body').css('overflow', '');
+                    // اجرای توابع مورد نیاز
+                    t(true);
+                    a().unlocked();
+                    return;
+                }
+
+                // بارگذاری تصاویر
+                images.each(function() {
+                    var img = new Image();
+                    img.onload = img.onerror = function() {
+                        imagesLoaded++;
+
+                        // اگر حداقل 3 تصویر یا همه تصاویر بارگذاری شده‌اند
+                        if (imagesLoaded >= minImagesToLoad) {
+                            // فعال کردن مجدد اسکرول
+                            e('body').css('overflow', '');
+                            // اجرای توابع مورد نیاز
+                            t(true);
+                            a().unlocked();
+
+                            // ادامه بارگذاری بقیه تصاویر در پس‌زمینه
+                            // این بخش برای اطمینان از بارگذاری همه تصاویر است
+                        }
+                    };
+                    img.src = this.src;
+                });
             })
             .catch(function(error) {
                 console.error('Error loading page:', error);
