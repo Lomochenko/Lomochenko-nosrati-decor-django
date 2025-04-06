@@ -40,8 +40,8 @@
 
             console.log('Opening modal');
 
-            // Save scroll position
-            scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            // Save scroll position (using modern API)
+            scrollPosition = window.scrollY || document.documentElement.scrollTop;
 
             // Copy SEO content to modal
             if (modalBody && seoContent) {

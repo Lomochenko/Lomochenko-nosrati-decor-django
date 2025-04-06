@@ -24,15 +24,21 @@
     <script src="assets/js/defer-scripts.js"></script>
 
     <!-- Optimized JavaScript Loading -->
+    <!-- Fixed JS files (loaded on all pages) -->
     <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/passive-events.js"></script>
     <script src="assets/js/dsn-grid.js"></script>
     <script src="assets/js/fixes.js" defer></script>
     <script src="assets/js/plugins.js" defer></script>
-    <script src="assets/js/custom.js" defer></script>
     <script src="assets/js/lazy-load.js" defer></script>
-    <script src="assets/js/main.js" defer></script>
     <script src="assets/js/mobile-nav.js" defer></script>
+    <script src="assets/js/core.js" defer></script>
 
+    <!-- Page-specific JS files -->
+    <script src="assets/js/slick-init.js" defer></script>
+
+    <!-- Legacy JS files (to be refactored) -->
+    <script src="assets/js/custom.js" defer></script>
     <script>
         // Hide content until scripts are loaded
         document.addEventListener('DOMContentLoaded', function () {

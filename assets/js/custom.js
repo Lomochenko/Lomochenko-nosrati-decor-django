@@ -35,22 +35,7 @@
     }
 })();
 
-function SliderProject() {
-    $(".slider-project .swiper-container").each(function (e) {
-        new Swiper(this, {
-            slidesPerView: "auto",
-            spaceBetween: 60,
-            navigation: {
-                nextEl: $(this).parents(".slider-project").find(".slider-button-next"),
-                prevEl: $(this).parents(".slider-project").find(".slider-button-prev")
-            },
-            pagination: {
-                el: $(this).parents(".slider-project").find(".swiper-pagination"),
-                type: "fraction"
-            }
-        })
-    })
-}
+// SliderProject function has been moved to slider.js
 
 function data_overlay() {
     $("[data-overlay-color]").each(function (e) {
@@ -67,19 +52,7 @@ function background() {
     })
 }
 
-function slick_client(e) {
-    var t = $(".client-curs");
-    t.length > 0 && (t.slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: !0,
-        infinite: !0,
-        nextArrow: '<i class="fas fa-angle-right"></i>',
-        prevArrow: '<i class="fas fa-angle-left"></i>',
-        cssEase: "cubic-bezier(.9, .03, .41, .49)",
-        speed: 700
-    }), e.width() > 991 && (dsnGrid.parallaxMoveElemnt(t.find(".fas.fa-angle-right"), 25), dsnGrid.parallaxMoveElemnt(t.find(".fas.fa-angle-left"), 25)))
-}
+// slick_client function has been moved to slick-init.js
 
 function contactValidator() {
     var e = $("#contact-form");
@@ -360,7 +333,7 @@ function initCursor() {
                         e(this).parents(".item").find("video")[0].pause()
                     })
                 })
-            }(), SliderProject(), slick_client(i),
+            }(), // SliderProject and slick_client have been moved to separate files
             function (n) {
                 const r = "dsn-effect-animate",
                     l = '[data-dsn-ajax="img"]';
@@ -725,72 +698,9 @@ function initCursor() {
                 if (void 0 !== t && !0 === t) return void n();
                 if (e("body").hasClass("dsn-large-mobile")) return;
                 dsnGrid.mouseMove(i), n()
-            }(n), e(".client-see .slick-slider  ").slick({
-                infinite: !0,
-                slidesToShow: 1,
-                arrows: !1,
-                dots: !0,
-                fade: !0,
-                cssEase: "linear"
-            }), e(' .our-news .slick-slider , .our-team .slick-slider , [data-dsn-col="2"] .slick-slider').slick({
-                infinite: true,
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                arrows: false,
-                dots: true,
-                autoplay: true,
-                autoplaySpeed: 3000,
-                pauseOnHover: true,
-                cssEase: 'ease-out',
-                speed: 800,
-                fade: false,
-                swipe: true,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1,
-                            autoplaySpeed: 2500
-                        }
-                    },
-                    {
-                        breakpoint: 800,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            autoplaySpeed: 2000
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            autoplaySpeed: 1800
-                        }
-                    }
-                ]
-            }), e('[data-dsn-col="3"] .slick-slider').slick({
-                infinite: !0,
-                slidesToShow: 3,
-                arrows: !1,
-                dots: !0,
-                autoplay: !0,
-                responsive: [{
-                    breakpoint: 800,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                }, {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }]
-            }), e(".gallery-col .box-im .image-zoom").magnificPopup({
+            }(n),
+            // Slick slider initialization has been moved to slick-init.js
+            e(".gallery-col .box-im .image-zoom").magnificPopup({
                 delegate: "a",
                 type: "image",
                 closeOnContentClick: !1,
@@ -905,132 +815,15 @@ function initCursor() {
                             dsnGrid.convertTextLine(i, i)
                         })
                     },
-                    progress: function (e) {
-                        e.on("progress", function () {
-                            let e = this;
-                            for (let t = 0; t < e.slides.length; t++) {
-                                let n = e.slides[t].progress,
-                                    a = .5 * e.width,
-                                    i = n * a;
-                                e.slides[t].querySelector(".image-bg").style.transform = "translateX(" + i + "px) "
-                            }
-                        })
-                    },
-                    slideChange: function (a) {
-                        var i = this;
-                        a.on("slideChange", function () {
-                            let o = t.find(".dsn-slider-content .dsn-active"),
-                                s = o.data("dsn-id");
-                            let r = e(this.slides[this.activeIndex]).data("dsn-id");
-                            if (s === r) return;
-                            t.find('[data-dsn="video"] video').each(function () {
-                                this.pause()
-                            });
-                            let l = e(this.slides[this.activeIndex]).find('[data-dsn="video"] video');
-                            l.length > 0 && l[0].play();
-                            let d = o.find(".dsn-chars-wrapper");
-                            o.removeClass("dsn-active-cat");
-                            let c = t.find('.dsn-slider-content [data-dsn-id="' + r + '"]'),
-                                u = c.find(".dsn-chars-wrapper"),
-                                f = s > r,
-                                h = new TimelineLite;
-                            h.staggerFromTo(dsnGrid.randomObjectArray(d, .3), .3, i.showText().title, i.hideText(f).title, .1, 0, function () {
-                                t.find(".dsn-slider-content .slide-content").removeClass("dsn-active"), t.find(".dsn-slider-content .slide-content").removeClass("dsn-active-cat"), c.addClass("dsn-active"), c.addClass("dsn-active-cat")
-                            }), h.staggerFromTo(dsnGrid.randomObjectArray(u, n), n, i.hideText(f).title, i.showText().title, .1, "-=.8")
-                        })
-                    },
-                    showText: function () {
-                        return {
-                            title: {
-                                autoAlpha: 1,
-                                x: "0%",
-                                scale: 1,
-                                rotation: 0,
-                                ease: Elastic.easeInOut,
-                                yoyo: !0
-                            },
-                            subtitle: {
-                                autoAlpha: 1,
-                                y: "0%",
-                                ease: Elastic.easeOut
-                            }
-                        }
-                    },
-                    hideText: function (e) {
-                        let t = "-90%";
-                        return e && (t = "90%"), {
-                            title: {
-                                autoAlpha: 0,
-                                x: t,
-                                rotation: 8,
-                                scale: 1.2,
-                                ease: Elastic.easeOut,
-                                yoyo: !0
-                            },
-                            subtitle: {
-                                autoAlpha: 0,
-                                y: t,
-                                ease: Elastic.easeOut
-                            }
-                        }
-                    },
-                    touchStart: function (e) {
-                        e.on("touchStart", function () {
-                            let e = this;
-                            for (let t = 0; t < e.slides.length; t++) e.slides[t].style.transition = ""
-                        })
-                    },
-                    setTransition: function (e) {
-                        e.on("setTransition", function (e) {
-                            let t = this;
-                            for (let n = 0; n < t.slides.length; n++) t.slides[n].style.transition = e + "ms", t.slides[n].querySelector(".image-bg").style.transition = e + "ms"
-                        })
-                    },
-                    swiperObject: function () {
-                        return new Swiper(".dsn-slider .slide-inner", {
-                            speed: 1500,
-                            allowTouchMove: !0,
-                            resistanceRatio: .65,
-                            navigation: {
-                                nextEl: ".dsn-slider .control-nav .next-container",
-                                prevEl: ".dsn-slider .control-nav .prev-container"
-                            },
-                            pagination: {
-                                el: ".dsn-slider .footer-slid .control-num span",
-                                type: "custom",
-                                clickable: !0,
-                                renderCustom: function (e, t, n) {
-                                    return dsnGrid.numberText(t)
-                                }
-                            },
-                            on: {
-                                init: function () {
-                                    this.autoplay.stop(), t.find('[data-dsn="video"] video').each(function () {
-                                        this.pause()
-                                    })
-                                },
-                                imagesReady: function () {
-                                    let t = e(this.slides[this.activeIndex]).find('[data-dsn="video"] video');
-                                    t.length > 0 && t[0].play()
-                                }
-                            }
-                        })
-                    },
+                    // progress function has been removed as it's not used
+                    // slideChange function has been removed as it's not used
+                    // showText and hideText functions have been removed as they're not used
+                    // touchStart and setTransition functions have been removed as they're not used
+                    // swiperObject has been removed as it's not used
                     run: function () {
                         if (t.length <= 0) return;
                         this.initSlider();
-                        var n = this.swiperObject();
-                        if (this.progress(n), this.touchStart(n), this.setTransition(n), this.slideChange(n), e(".nav-slider").length <= 0) return;
-                        let a = new Swiper(".nav-slider", {
-                            speed: 1500,
-                            slidesPerView: 3,
-                            centeredSlides: !0,
-                            touchRatio: .2,
-                            slideToClickedSlide: !0,
-                            direction: "vertical",
-                            resistanceRatio: .65
-                        });
-                        n.controller.control = a, a.controller.control = n
+                        // Swiper initialization has been removed as it's not used
                     }
                 }
             }().run(), e("a.vid").YouTubePopUp(), contactValidator()

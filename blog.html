@@ -25,19 +25,25 @@
     <script src="assets/js/defer-scripts.js"></script>
 
     <!-- Optimized JavaScript Loading -->
+    <!-- Fixed JS files (loaded on all pages) -->
     <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/passive-events.js"></script>
     <script src="assets/js/dsn-grid.js"></script>
     <script src="assets/js/fixes.js" defer></script>
     <script src="assets/js/plugins.js" defer></script>
-    <script src="assets/js/custom.js" defer></script>
     <script src="assets/js/lazy-load.js" defer></script>
-    <script src="assets/js/main.js" defer></script>
     <script src="assets/js/mobile-nav.js" defer></script>
+    <script src="assets/js/core.js" defer></script>
 
+    <!-- Page-specific JS files -->
+
+
+    <!-- Legacy JS files (to be refactored) -->
+    <script src="assets/js/custom.js" defer></script>
     <script>
         // Hide content until scripts are loaded
         document.addEventListener('DOMContentLoaded', function () {
-            setTimeout(function() {
+            setTimeout(function () {
                 document.querySelector('.main-root').style.visibility = 'visible';
             }, 100);
         });
@@ -48,14 +54,14 @@
 
     <!-- custom styles (optional) -->
     <link href="assets/css/all.min.css" rel="stylesheet" />
-    
+
     <!-- Preloader fix -->
     <link href="assets/css/preloader-fix.css" rel="stylesheet" />
 
     <script>
         // Add class to body for internal page loading
         if (performance.navigation.type === 1 || document.referrer.includes(window.location.hostname)) {
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 document.body.classList.add('internal-page-loaded');
             });
         }
