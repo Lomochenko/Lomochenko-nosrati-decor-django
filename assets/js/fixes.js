@@ -15,52 +15,11 @@ if (typeof luxuryPreloader === 'undefined') {
 }
 
 // Fix for setActiveNavItem is not defined
+// Mobile navigation is now handled in custom.js to avoid duplication
 if (typeof setActiveNavItem === 'undefined') {
-    // Define the setActiveNavItem function
     window.setActiveNavItem = function() {
-        // Find mobile nav
-        var $mobileNav = $('.nav-mobile-app');
-        if ($mobileNav.length <= 0) return;
-
-        // Always show menu
-        $mobileNav.addClass('nav-visible').removeClass('nav-hidden');
-
-        // Get current URL
-        var currentPath = window.location.pathname;
-        var currentPage = currentPath.split('/').pop() || 'home.html';
-
-        // If URL is empty, we're probably on home page
-        if (currentPage === '') {
-            currentPage = 'home.html';
-        }
-
-        // For consulting page check
-        var isConsultingPage = window.location.hash === '#consulting';
-
-        // Remove all active classes first
-        $mobileNav.find('.nav-item').removeClass('active');
-
-        // Find the matching nav item and add active class
-        $mobileNav.find('.nav-item').each(function() {
-            var $item = $(this);
-            var href = $item.attr('href');
-
-            // Detect active item based on URL
-            if (
-                href === currentPage ||
-                ((currentPage === 'home.html' || currentPage === 'index.html') &&
-                 (href === 'home.html' || href === 'index.html')) ||
-                (isConsultingPage && href === 'consulting.html')
-            ) {
-                $item.addClass('active');
-            }
-        });
-
-        // Add click handler for nav items
-        $mobileNav.find('.nav-item').off('click.nav').on('click.nav', function() {
-            $mobileNav.find('.nav-item').removeClass('active');
-            $(this).addClass('active');
-        });
+        // This is just a stub - the real implementation is in custom.js
+        console.log('Using setActiveNavItem from custom.js');
     };
 }
 
